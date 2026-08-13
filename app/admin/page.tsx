@@ -1,3 +1,4 @@
+import { auditEvents, eventEnquiries, inventoryItems, notificationTemplates, paymentRecords } from "@/lib/operations-data";
 import { adminMetrics, roles } from "@/lib/platform-data";
 
 const adminModules = [
@@ -51,6 +52,68 @@ export default function AdminPage() {
           <p className="eyebrow">Operational modules</p>
           <h2>Every workflow can be governed and audited.</h2>
           <div className="moduleList">{adminModules.map((module) => <span key={module}>{module}</span>)}</div>
+        </div>
+      </section>
+
+      <section className="sectionWrap flushTop twoColumn">
+        <div>
+          <p className="eyebrow">Inventory alerts</p>
+          <h2>Kitchen procurement and stock risk.</h2>
+          <div className="activityList compact">
+            {inventoryItems.map((item) => (
+              <article className="activityCard" key={item.sku}>
+                <span>{item.status}</span>
+                <h2>{item.name}</h2>
+                <p>{item.category} • Stock {item.stock} • Minimum {item.threshold}</p>
+                <strong>{item.supplier}</strong>
+              </article>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="eyebrow">Payments and events CRM</p>
+          <h2>Money movement and enquiries are visible together.</h2>
+          <div className="activityList compact">
+            {paymentRecords.map((payment) => (
+              <article className="activityCard" key={payment.reference}>
+                <span>{payment.status}</span>
+                <h2>{payment.reference}</h2>
+                <p>{payment.module} • {payment.customer}</p>
+                <strong>{payment.amount}</strong>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sectionWrap flushTop twoColumn">
+        <div>
+          <p className="eyebrow">Event pipeline</p>
+          <h2>Enquiries can become quotes and confirmed bookings.</h2>
+          <div className="activityList compact">
+            {eventEnquiries.map((event) => (
+              <article className="activityCard" key={event.id}>
+                <span>{event.stage}</span>
+                <h2>{event.type}</h2>
+                <p>{event.date} • {event.guests} guests</p>
+                <strong>{event.requirements}</strong>
+              </article>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="eyebrow">Notifications and audit</p>
+          <h2>Customer messaging and sensitive actions stay traceable.</h2>
+          <div className="activityList compact">
+            {notificationTemplates.map((template) => (
+              <article className="activityCard" key={`${template.channel}-${template.trigger}`}>
+                <span>{template.channel}</span>
+                <h2>{template.trigger}</h2>
+                <p>Owner: {template.owner}</p>
+              </article>
+            ))}
+            {auditEvents.map((event) => <article className="activityCard" key={event}><p>{event}</p></article>)}
+          </div>
         </div>
       </section>
     </main>
