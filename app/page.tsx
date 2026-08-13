@@ -4,6 +4,8 @@ const navigation = [
   { label: "Restaurant", href: "/menu" },
   { label: "Bookings", href: "/book" },
   { label: "Admin", href: "/admin" },
+  { label: "Kitchen", href: "/kitchen" },
+  { label: "Account", href: "/account" },
   { label: "Roadmap", href: "#roadmap" },
 ];
 
@@ -198,6 +200,7 @@ export default function Home() {
           <div className="heroButtons">
             <a className="primaryButton" href="/book">Start Booking</a>
             <a className="secondaryButton" href="/admin">View Operations</a>
+            <a className="secondaryButton" href="/qr/24">Try Table QR</a>
             <a className="primaryButton" href="#booking">Start Booking</a>
             <a className="secondaryButton" href="#platform">Explore Platform</a>
           </div>

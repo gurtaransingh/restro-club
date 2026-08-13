@@ -15,6 +15,11 @@ npm run build
 
 ## What is included
 
+- Next.js App Router project structure with public, customer, staff, kitchen, booking, menu and admin surfaces.
+- Luxury mobile-first landing page for the Restro Club brand.
+- Customer CTAs for table reservations, food ordering, sports, stays, events and membership.
+- Operational platform positioning for kitchen, inventory, bookings, HR, payroll, payments, notifications, analytics and super-admin workflows.
+- Product roadmap, data-model, security and implementation planning docs.
 - Next.js App Router project structure.
 - Luxury mobile-first landing page for the Restro Club brand.
 - Customer CTAs for table reservations, food ordering, sports, stays, events and membership.
@@ -26,6 +31,8 @@ npm run build
 - [`docs/product-roadmap.md`](docs/product-roadmap.md) — phases, launch modules, architecture principles and security expectations.
 - [`docs/architecture/data-model.md`](docs/architecture/data-model.md) — PostgreSQL-oriented data model blueprint for multi-location operations.
 - [`docs/architecture/module-boundaries.md`](docs/architecture/module-boundaries.md) — modular application boundaries and future service extraction plan.
+- [`docs/architecture/security.md`](docs/architecture/security.md) — security, RBAC, audit and operational-control plan.
+- [`docs/implementation-plan.md`](docs/implementation-plan.md) — milestone plan for building the production platform.
 ## Product direction
 
 See [`docs/product-roadmap.md`](docs/product-roadmap.md) for the phased product plan and architecture principles.

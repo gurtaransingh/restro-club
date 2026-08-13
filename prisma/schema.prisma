@@ -1,0 +1,294 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  CUSTOMER
+  EMPLOYEE
+}
+
+enum BookingStatus {
+  DRAFT
+  PENDING_PAYMENT
+  CONFIRMED
+  CHECKED_IN
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+enum OrderStatus {
+  RECEIVED
+  ACCEPTED
+  PREPARING
+  READY
+  SERVED
+  COMPLETED
+  CANCELLED
+}
+
+model Organization {
+  id        String     @id @default(cuid())
+  name      String
+  slug      String     @unique
+  locations Location[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Location {
+  id             String        @id @default(cuid())
+  organizationId String
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+  name           String
+  slug           String
+  address        String
+  timezone       String        @default("Asia/Kolkata")
+  departments    Department[]
+  facilities     Facility[]
+  users          UserRole[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@unique([organizationId, slug])
+}
+
+model Department {
+  id         String   @id @default(cuid())
+  locationId String
+  location   Location @relation(fields: [locationId], references: [id])
+  name       String
+  createdAt  DateTime @default(now())
+
+  @@unique([locationId, name])
+}
+
+model User {
+  id              String            @id @default(cuid())
+  email           String            @unique
+  phone           String?           @unique
+  name            String
+  type            UserType
+  customerProfile CustomerProfile?
+  employeeProfile EmployeeProfile?
+  roles           UserRole[]
+  orders          Order[]
+  bookings        Booking[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+}
+
+model CustomerProfile {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id])
+  loyaltyPoints Int      @default(0)
+  preferences   Json?
+  createdAt     DateTime @default(now())
+}
+
+model EmployeeProfile {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id])
+  employeeCode String   @unique
+  department   String
+  designation  String
+  joinedAt     DateTime
+  status       String   @default("ACTIVE")
+  salaryRecords SalaryRecord[]
+}
+
+model Role {
+  id          String           @id @default(cuid())
+  name        String           @unique
+  permissions RolePermission[]
+  users       UserRole[]
+}
+
+model Permission {
+  id     String           @id @default(cuid())
+  key    String           @unique
+  label  String
+  roles  RolePermission[]
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+  role         Role       @relation(fields: [roleId], references: [id])
+  permission   Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([roleId, permissionId])
+}
+
+model UserRole {
+  id         String    @id @default(cuid())
+  userId     String
+  roleId     String
+  locationId String?
+  user       User      @relation(fields: [userId], references: [id])
+  role       Role      @relation(fields: [roleId], references: [id])
+  location   Location? @relation(fields: [locationId], references: [id])
+
+  @@unique([userId, roleId, locationId])
+  @@index([locationId])
+}
+
+model Facility {
+  id          String     @id @default(cuid())
+  locationId  String
+  location    Location   @relation(fields: [locationId], references: [id])
+  name        String
+  type        String
+  description String?
+  resources   Resource[]
+  bookings    Booking[]
+  createdAt   DateTime   @default(now())
+}
+
+model Resource {
+  id         String    @id @default(cuid())
+  facilityId String
+  facility   Facility  @relation(fields: [facilityId], references: [id])
+  name       String
+  capacity   Int       @default(1)
+  status     String    @default("ACTIVE")
+  bookings   Booking[]
+
+  @@unique([facilityId, name])
+}
+
+model MenuCategory {
+  id    String     @id @default(cuid())
+  name  String     @unique
+  items MenuItem[]
+}
+
+model MenuItem {
+  id            String       @id @default(cuid())
+  categoryId    String
+  category      MenuCategory @relation(fields: [categoryId], references: [id])
+  name          String
+  description   String
+  priceInPaise  Int
+  prepMinutes   Int
+  calories      Int?
+  allergens     String[]
+  isVegetarian  Boolean
+  marginPercent Int?
+  isAvailable   Boolean      @default(true)
+  orderItems    OrderItem[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model RestaurantTable {
+  id          String   @id @default(cuid())
+  locationId  String
+  tableNumber String
+  area        String?
+  capacity    Int
+  qrToken     String   @unique
+  isActive    Boolean  @default(true)
+  sessions    TableSession[]
+
+  @@unique([locationId, tableNumber])
+}
+
+model TableSession {
+  id        String          @id @default(cuid())
+  tableId   String
+  table     RestaurantTable @relation(fields: [tableId], references: [id])
+  token     String          @unique
+  openedAt  DateTime        @default(now())
+  closedAt  DateTime?
+  orders    Order[]
+}
+
+model Order {
+  id             String        @id @default(cuid())
+  customerId     String?
+  customer       User?         @relation(fields: [customerId], references: [id])
+  tableSessionId String?
+  tableSession   TableSession? @relation(fields: [tableSessionId], references: [id])
+  status         OrderStatus   @default(RECEIVED)
+  subtotalPaise  Int
+  taxPaise       Int           @default(0)
+  totalPaise     Int
+  items          OrderItem[]
+  events         OrderStatusEvent[]
+  createdAt      DateTime      @default(now())
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id])
+  menuItemId  String
+  menuItem    MenuItem @relation(fields: [menuItemId], references: [id])
+  quantity    Int
+  unitPaise   Int
+  notes       String?
+}
+
+model OrderStatusEvent {
+  id        String      @id @default(cuid())
+  orderId   String
+  order     Order       @relation(fields: [orderId], references: [id])
+  status    OrderStatus
+  note      String?
+  createdAt DateTime    @default(now())
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  customerId  String?
+  customer    User?         @relation(fields: [customerId], references: [id])
+  facilityId  String
+  facility    Facility      @relation(fields: [facilityId], references: [id])
+  resourceId  String?
+  resource    Resource?     @relation(fields: [resourceId], references: [id])
+  startsAt    DateTime
+  endsAt      DateTime
+  guestCount  Int           @default(1)
+  status      BookingStatus @default(PENDING_PAYMENT)
+  totalPaise  Int
+  createdAt   DateTime      @default(now())
+
+  @@index([facilityId, startsAt, endsAt])
+  @@index([resourceId, startsAt, endsAt])
+}
+
+model SalaryRecord {
+  id                String          @id @default(cuid())
+  employeeProfileId String
+  employeeProfile   EmployeeProfile @relation(fields: [employeeProfileId], references: [id])
+  basicPayPaise     Int
+  allowancesPaise   Int             @default(0)
+  effectiveFrom     DateTime
+  effectiveTo       DateTime?
+  createdAt         DateTime        @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?
+  action    String
+  entity    String
+  entityId  String
+  before    Json?
+  after     Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([actorId, createdAt])
+}
