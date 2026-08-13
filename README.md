@@ -25,6 +25,7 @@ npm run build
 
 - [`docs/product-roadmap.md`](docs/product-roadmap.md) — phases, launch modules, architecture principles and security expectations.
 - [`docs/architecture/data-model.md`](docs/architecture/data-model.md) — PostgreSQL-oriented data model blueprint for multi-location operations.
+- [`docs/architecture/module-boundaries.md`](docs/architecture/module-boundaries.md) — modular application boundaries and future service extraction plan.
 ## Product direction
 
 See [`docs/product-roadmap.md`](docs/product-roadmap.md) for the phased product plan and architecture principles.

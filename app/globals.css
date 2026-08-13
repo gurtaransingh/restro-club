@@ -218,6 +218,123 @@ h3 { margin: 0; }
   .siteHeader { padding: .85rem 1rem; }
   .hero { padding-top: 8rem; }
   .statusRow { grid-template-columns: 1fr; }
+}
+
+.textLink {
+  color: var(--gold-bright);
+  display: inline-flex;
+  font-weight: 900;
+  margin-top: 1rem;
+}
+.menuPreview { background: #0c0805; }
+.menuGrid, .flowGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: 2rem;
+}
+.menuGrid.detailed { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.menuCard, .flowCard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, .18);
+  padding: 1.35rem;
+}
+.menuCard span, .flowCard span, .experienceCard span {
+  color: var(--gold-bright);
+  font-size: .75rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.menuCard h2, .menuCard h3, .flowCard h2, .flowCard h3 {
+  color: var(--cream);
+  font-family: Georgia, serif;
+  font-size: 1.8rem;
+  letter-spacing: -.03em;
+  line-height: 1;
+  margin: .6rem 0;
+}
+.menuCard p, .flowCard p, .pageHero p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+.menuCard strong {
+  color: var(--gold-bright);
+  display: block;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+.menuCard small, .metricCard small {
+  color: var(--muted);
+  display: block;
+  line-height: 1.5;
+  margin-top: .45rem;
+}
+.experienceCard ul {
+  color: var(--muted);
+  display: grid;
+  gap: .35rem;
+  margin: 1rem 0 0;
+  padding-left: 1.1rem;
+}
+.bookingFlow { background: #0d0906; }
+.innerPage {
+  min-height: 100svh;
+  padding-top: 1rem;
+}
+.backLink {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--gold-bright);
+  display: inline-flex;
+  font-weight: 900;
+  margin: 1rem clamp(1rem, 5vw, 5rem);
+  padding: .75rem 1rem;
+}
+.pageHero {
+  padding: clamp(3rem, 7vw, 7rem) clamp(1rem, 5vw, 5rem);
+}
+.compactHero {
+  background:
+    radial-gradient(circle at 82% 8%, rgba(216, 181, 109, .2), transparent 24rem),
+    linear-gradient(180deg, #120d08, #080604);
+}
+.pageHero h1 {
+  font-size: clamp(2.6rem, 6vw, 6rem);
+  max-width: 1100px;
+}
+.pageHero p { font-size: clamp(1rem, 2vw, 1.25rem); max-width: 860px; }
+.flushTop { padding-top: 1rem; }
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+.chipRow span {
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--gold-bright);
+  font-weight: 800;
+  padding: .75rem 1rem;
+}
+.detailList {
+  display: grid;
+  gap: .4rem;
+  margin-top: 1rem;
+}
+.dashboardGrid.expanded { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.twoColumn {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.adminPage { background: radial-gradient(circle at top right, rgba(216, 181, 109, .12), transparent 28rem), var(--bg); }
+
+@media (max-width: 760px) {
+  .twoColumn { grid-template-columns: 1fr; }
 .brand { color: var(--gold); font-family: Georgia, serif; font-size: 1.25rem; letter-spacing: .18em; text-transform: uppercase; }
 .navLinks { align-items: center; display: flex; gap: clamp(.75rem, 2vw, 1.5rem); }
 .navCta { border: 1px solid var(--gold); border-radius: 999px; color: var(--gold); padding: .65rem 1rem; }

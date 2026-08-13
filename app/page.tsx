@@ -1,3 +1,41 @@
+import { adminMetrics, bookingSteps, experiences, menuItems, roles } from "@/lib/platform-data";
+
+const navigation = [
+  { label: "Restaurant", href: "/menu" },
+  { label: "Bookings", href: "/book" },
+  { label: "Admin", href: "/admin" },
+  { label: "Roadmap", href: "#roadmap" },
+];
+
+const quickActions = [
+  { label: "Reserve a Table", detail: "Fine dining and café seating", href: "/book?type=table" },
+  { label: "Order Food", detail: "Delivery, pickup and QR table orders", href: "/menu" },
+  { label: "Book Sports", detail: "Indoor and outdoor facilities", href: "/book?type=sports" },
+  { label: "Book a Stay", detail: "1 BHK, 2 BHK and future suites", href: "/book?type=stay" },
+  { label: "Plan an Event", detail: "Parties, tournaments and private functions", href: "/book?type=event" },
+  { label: "Join Membership", detail: "Priority access, rewards and benefits", href: "#membership" },
+];
+
+const roadmap = [
+  ["Phase 1", "Foundation", "Brand, CMS, authentication, customer accounts, homepage, restaurant, QR ordering and basic administration."],
+  ["Phase 2", "Operations", "Kitchen management, inventory, sports booking, pool booking, payments, notifications and staff dashboards."],
+  ["Phase 3", "Hospitality", "Stay booking, housekeeping, event workflows, memberships, loyalty and customer dashboards."],
+  ["Phase 4", "Enterprise", "HR, attendance, payroll, advanced analytics, CRM, finance and business intelligence."],
+  ["Phase 5", "Scale", "Native apps, automation, AI-assisted analytics, multi-location growth and advanced integrations."],
+];
+
+export default function Home() {
+  const signatureItems = menuItems.slice(0, 3);
+  const headlineMetrics = adminMetrics.slice(0, 4);
+
+  return (
+    <main>
+      <header className="siteHeader">
+        <a className="brand" href="#top" aria-label="Restro Club home"><span>Restro</span> Club</a>
+        <nav className="navLinks" aria-label="Primary navigation">
+          {navigation.map((item) => <a href={item.href} key={item.label}>{item.label}</a>)}
+        </nav>
+        <a className="headerCta" href="/book">Book Now</a>
 const navigation = ["Restaurant", "Club", "Sports", "Pool", "Stay", "Events", "Membership"];
 
 const quickActions = [
@@ -158,6 +196,8 @@ export default function Home() {
             order, book, pay, receive confirmation and let management control every workflow from one command center.
           </p>
           <div className="heroButtons">
+            <a className="primaryButton" href="/book">Start Booking</a>
+            <a className="secondaryButton" href="/admin">View Operations</a>
             <a className="primaryButton" href="#booking">Start Booking</a>
             <a className="secondaryButton" href="#platform">Explore Platform</a>
           </div>
@@ -169,6 +209,7 @@ export default function Home() {
         </aside>
       </section>
 
+      <section className="quickActions sectionWrap">
       <section id="booking" className="quickActions sectionWrap">
         <div className="sectionIntro">
           <p className="eyebrow">Customer journeys</p>
@@ -176,6 +217,7 @@ export default function Home() {
         </div>
         <div className="actionGrid">
           {quickActions.map((action) => (
+            <a className="actionCard" href={action.href} key={action.label}>
             <a className="actionCard" href="#platform" key={action.label}>
               <strong>{action.label}</strong>
               <span>{action.detail}</span>
@@ -184,6 +226,7 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="sectionWrap splitShowcase">
       <section id="restaurant" className="sectionWrap splitShowcase">
         <div>
           <p className="eyebrow">Restaurant, café and QR ordering</p>
@@ -192,6 +235,14 @@ export default function Home() {
             Guests can browse menus, filter categories, customize dishes, add special instructions, pay online,
             receive invoices and follow live statuses from received to served.
           </p>
+          <a className="textLink" href="/menu">Explore signature menu →</a>
+        </div>
+        <div className="statusBoard" aria-label="Kitchen order status board mockup">
+          {["Received", "Accepted", "Preparing", "Ready", "Served"].map((status, index) => (
+            <div className="statusRow" key={status}>
+              <span>0{index + 1}</span>
+              <strong>{status}</strong>
+              <em>{index === 2 ? "Table 24 • 4 items" : "Live update"}</em>
         </div>
         <div className="statusBoard" aria-label="Kitchen order status board mockup">
           {['Received', 'Accepted', 'Preparing', 'Ready', 'Served'].map((status, index) => (
@@ -204,6 +255,7 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="sectionWrap experiences">
       <section id="club" className="sectionWrap experiences">
         <div className="sectionIntro wide">
           <p className="eyebrow">Hospitality + recreation ecosystem</p>
@@ -211,6 +263,29 @@ export default function Home() {
         </div>
         <div className="experienceGrid">
           {experiences.map((experience) => (
+            <article className="experienceCard" id={experience.id} key={experience.id}>
+              <span>{experience.priceHint}</span>
+              <h3>{experience.title}</h3>
+              <p>{experience.description}</p>
+              <ul>{experience.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="sectionWrap menuPreview">
+        <div className="sectionIntro wide">
+          <p className="eyebrow">Signature food showcase</p>
+          <h2>Menu data is structured for nutrition, allergens, costing and profitability.</h2>
+        </div>
+        <div className="menuGrid">
+          {signatureItems.map((item) => (
+            <article className="menuCard" key={item.id}>
+              <span>{item.category}</span>
+              <h3>{item.name}</h3>
+              <p>{item.description}</p>
+              <strong>₹{item.price}</strong>
+              <small>{item.prepMinutes} min • {item.calories} cal • {item.marginPercent}% margin</small>
             <article className="experienceCard" id={experience.id} key={experience.title}>
               <h3>{experience.title}</h3>
               <p>{experience.copy}</p>
@@ -230,12 +305,37 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="sectionBleed commandCenter">
       <section id="platform" className="sectionBleed commandCenter">
         <div className="sectionIntro wide">
           <p className="eyebrow">Super admin command center</p>
           <h2>Operate revenue, staff, facilities and customer intelligence from one place.</h2>
         </div>
         <div className="dashboardGrid">
+          {headlineMetrics.map((item) => (
+            <article className="metricCard" key={item.label}>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+              <small>{item.trend}</small>
+            </article>
+          ))}
+        </div>
+        <div className="moduleList">{roles.map((role) => <span key={role}>{role}</span>)}</div>
+      </section>
+
+      <section className="sectionWrap bookingFlow">
+        <div className="sectionIntro wide">
+          <p className="eyebrow">Explore → Select → Pay → Confirm</p>
+          <h2>The core journey stays simple even when the platform is enterprise-grade.</h2>
+        </div>
+        <div className="flowGrid">
+          {bookingSteps.map((step, index) => (
+            <article className="flowCard" key={step.title}>
+              <span>0{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </article>
+          ))}
           {dashboards.map((item) => (
             <article className="metricCard" key={item.label}>
               <strong>{item.metric}</strong>
@@ -254,6 +354,13 @@ export default function Home() {
           <h2>Launch the highest-value modules first, without blocking enterprise scale.</h2>
         </div>
         <ol>
+          {roadmap.map(([phase, title, detail]) => (
+            <li key={phase}>
+              <span>{phase}</span>
+              <h3>{title}</h3>
+              <p>{detail}</p>
+            </li>
+          ))}
           {roadmap.map((item) => (
             <li key={item.phase}>
               <span>{item.phase}</span>
