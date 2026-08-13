@@ -7,6 +7,7 @@ const navigation = [
   { label: "Book", href: "/book" },
   { label: "Kitchen", href: "/kitchen" },
   { label: "Staff", href: "/staff" },
+  { label: "Portal", href: "/portal" },
   { label: "Account", href: "/account" },
   { label: "Admin", href: "/admin" },
 ];
@@ -17,6 +18,7 @@ const quickActions = [
   { label: "Book Sports", detail: "Indoor and outdoor facilities", href: "/book?type=sports" },
   { label: "Book a Stay", detail: "1 BHK, 2 BHK and future suites", href: "/book?type=stay" },
   { label: "Plan an Event", detail: "Parties, tournaments and private functions", href: "/book?type=event" },
+  { label: "Open Portal", detail: "Account, invoices, rewards and support", href: "/portal" },
   { label: "Try Table QR", detail: "Demo table session workflow", href: "/qr/24" },
 ];
 

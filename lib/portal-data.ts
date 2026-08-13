@@ -76,6 +76,33 @@ export type PortalRequest = {
   nextStep: string;
 };
 
+export type PortalQuickAction = {
+  label: string;
+  href: string;
+  detail: string;
+};
+
+export type PortalInvoice = {
+  id: string;
+  module: "Restaurant" | "Sports" | "Stay" | "Pool" | "Membership";
+  amount: string;
+  status: "Paid" | "Deposit" | "Due";
+  issuedAt: string;
+};
+
+export type PortalNotification = {
+  channel: "WhatsApp" | "Email" | "SMS" | "Push";
+  title: string;
+  detail: string;
+  urgency: "Info" | "Action needed" | "Reminder";
+};
+
+export type PortalReadinessItem = {
+  module: string;
+  progress: string;
+  nextBuild: string;
+};
+
 export const availabilitySlots: AvailabilitySlot[] = [
   { id: "AVL-101", module: "Restaurant", resource: "Garden Deck Table", time: "Today 8:30 PM", capacity: "4 guests", price: "₹500 booking credit", status: "Fast filling" },
   { id: "AVL-102", module: "Sports", resource: "Pickleball Court 1", time: "Tomorrow 7:00 AM", capacity: "4 players", price: "₹900 / slot", status: "Available" },
@@ -143,4 +170,33 @@ export const portalRequests: PortalRequest[] = [
   { id: "REQ-1180", topic: "Apply Gold discount to pool cabana quote", status: "In review", nextStep: "CRM approval due today" },
   { id: "REQ-1172", topic: "Invoice GST details for sports booking", status: "Resolved", nextStep: "Invoice emailed to account" },
   { id: "REQ-1164", topic: "Add birthday dessert note to dinner reservation", status: "Open", nextStep: "Restaurant manager to confirm" },
+];
+
+export const portalQuickActions: PortalQuickAction[] = [
+  { label: "Order again", href: "/menu", detail: "Rebuild the current cart from recent dining preferences" },
+  { label: "Book another slot", href: "/book?type=sports", detail: "Use favorite sports, guest count and wallet credits" },
+  { label: "Manage stay", href: "/book?type=stay", detail: "Upload IDs, request housekeeping or extend checkout" },
+  { label: "Approve event quote", href: "/book?type=event", detail: "Review inclusions, deposits and membership discounts" },
+  { label: "Open table QR", href: "/qr/24", detail: "Continue the in-venue QR ordering session" },
+];
+
+export const portalInvoices: PortalInvoice[] = [
+  { id: "INV-2026-8841", module: "Restaurant", amount: "₹1,370", status: "Paid", issuedAt: "Today 8:32 PM" },
+  { id: "INV-2026-2110", module: "Sports", amount: "₹900", status: "Paid", issuedAt: "Aug 13, 2026" },
+  { id: "INV-2026-0102", module: "Stay", amount: "₹8,000", status: "Deposit", issuedAt: "Aug 12, 2026" },
+  { id: "INV-2026-0328", module: "Membership", amount: "₹24,000", status: "Paid", issuedAt: "Apr 01, 2026" },
+];
+
+export const portalNotifications: PortalNotification[] = [
+  { channel: "WhatsApp", title: "Dinner order preparing", detail: "Table 24 order is on the kitchen board with an 18 minute target.", urgency: "Info" },
+  { channel: "Email", title: "Stay documents pending", detail: "Upload guest IDs before Aug 22 check-in to speed up arrival.", urgency: "Action needed" },
+  { channel: "Push", title: "Gold reward almost unlocked", detail: "Earn 160 more points to unlock a ₹750 dining credit.", urgency: "Reminder" },
+];
+
+export const portalReadiness: PortalReadinessItem[] = [
+  { module: "Identity", progress: "Modeled", nextBuild: "Connect authentication, consent and household profiles" },
+  { module: "Ordering", progress: "Modeled", nextBuild: "Persist carts, payments, KOT events and order tracking" },
+  { module: "Bookings", progress: "Modeled", nextBuild: "Add conflict prevention, deposits, cancellation rules and calendars" },
+  { module: "Loyalty", progress: "Modeled", nextBuild: "Create ledger entries, coupons, tier expiry and reward redemption" },
+  { module: "Support", progress: "Modeled", nextBuild: "Add SLA queues, assignments, attachments and audit history" },
 ];
