@@ -148,3 +148,25 @@ td span { color: var(--gold); display: block; font-size: .85rem; margin-top: .25
   .hero { padding-top: 8rem; }
   .statusRow { grid-template-columns: 1fr; }
 }
+
+.liveBooking { background: radial-gradient(circle at 80% 20%, rgba(216, 181, 109, .16), transparent 22rem), #0b0704; }
+.availabilityGrid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 2rem; }
+.availabilityCard { background: linear-gradient(150deg, rgba(255, 248, 235, .14), rgba(255, 255, 255, .06)); border: 1px solid var(--line); border-radius: 28px; padding: 1.25rem; }
+.availabilityCard span, .availabilityCard em { color: var(--gold-bright); font-size: .75rem; font-style: normal; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.availabilityCard h3 { font-family: Georgia, serif; font-size: 1.9rem; letter-spacing: -.03em; margin: .65rem 0; }
+.availabilityCard p { color: var(--muted); line-height: 1.6; }
+.availabilityCard strong { color: var(--cream); display: block; margin-bottom: .8rem; }
+.bookingConsole { background: #0c0805; }
+.portalForm { background: var(--panel); border: 1px solid var(--line); border-radius: 32px; display: grid; gap: 1rem; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 2rem; padding: 1.25rem; }
+.portalForm label { color: var(--gold-bright); display: grid; font-size: .78rem; font-weight: 900; gap: .45rem; letter-spacing: .1em; text-transform: uppercase; }
+.portalForm input, .portalForm select, .portalForm textarea { background: rgba(255, 255, 255, .08); border: 1px solid var(--line); border-radius: 16px; color: var(--cream); font: inherit; min-height: 3rem; padding: .8rem; }
+.portalForm textarea { min-height: 6rem; resize: vertical; }
+.portalForm button { background: var(--cream); border: 0; border-radius: 18px; color: #211407; cursor: pointer; font-weight: 900; padding: .9rem 1rem; }
+.wideField { grid-column: span 3; }
+.totalCard { background: rgba(216, 181, 109, .14); }
+.threeColumnOps { display: grid; gap: 2rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+@media (max-width: 920px) {
+  .portalForm, .threeColumnOps { grid-template-columns: 1fr; }
+  .wideField { grid-column: auto; }
+}

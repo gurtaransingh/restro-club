@@ -1,4 +1,5 @@
 import { bookingSteps, experiences } from "@/lib/platform-data";
+import { availabilitySlots } from "@/lib/portal-data";
 
 export default function BookingPage() {
   return (
@@ -13,6 +14,21 @@ export default function BookingPage() {
         </p>
       </section>
 
+      <section className="sectionWrap flushTop bookingConsole">
+        <div className="sectionIntro wide">
+          <p className="eyebrow">Guided booking request</p>
+          <h2>Capture enough detail to confirm, quote or waitlist every journey.</h2>
+        </div>
+        <form className="portalForm">
+          <label>Experience<select defaultValue="Restaurant"><option>Restaurant</option><option>Sports</option><option>Pool</option><option>Stay</option><option>Event</option></select></label>
+          <label>Date<input type="date" defaultValue="2026-08-22" /></label>
+          <label>Guests or players<input type="number" min="1" defaultValue="4" /></label>
+          <label>Preferred time<input type="time" defaultValue="20:30" /></label>
+          <label className="wideField">Special request<textarea defaultValue="Birthday dinner with poolside seating if available." /></label>
+          <button type="button">Create booking request</button>
+        </form>
+      </section>
+
       <section className="sectionWrap flushTop">
         <div className="flowGrid">
           {bookingSteps.map((step, index) => (
@@ -20,6 +36,20 @@ export default function BookingPage() {
               <span>0{index + 1}</span>
               <h2>{step.title}</h2>
               <p>{step.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="sectionWrap flushTop">
+        <div className="sectionIntro wide">
+          <p className="eyebrow">Available now</p>
+          <h2>Sample slots demonstrate conflict-aware inventory across modules.</h2>
+        </div>
+        <div className="availabilityGrid">
+          {availabilitySlots.map((slot) => (
+            <article className="availabilityCard" key={slot.id}>
+              <span>{slot.module}</span><h3>{slot.resource}</h3><p>{slot.time} • {slot.capacity}</p><strong>{slot.price}</strong><em>{slot.status}</em>
             </article>
           ))}
         </div>

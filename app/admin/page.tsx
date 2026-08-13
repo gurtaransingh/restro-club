@@ -1,5 +1,6 @@
 import { auditEvents, eventEnquiries, inventoryItems, notificationTemplates, paymentRecords } from "@/lib/operations-data";
 import { adminMetrics, roles } from "@/lib/platform-data";
+import { loyaltyTiers, roomStatuses, sportsSchedule } from "@/lib/portal-data";
 
 const adminModules = [
   "CMS and gallery",
@@ -82,6 +83,30 @@ export default function AdminPage() {
                 <strong>{payment.amount}</strong>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sectionWrap flushTop threeColumnOps">
+        <div>
+          <p className="eyebrow">Stay operations</p>
+          <h2>Rooms move through ready, occupied, cleaning and blocked states.</h2>
+          <div className="activityList compact">
+            {roomStatuses.map((room) => <article className="activityCard" key={room.room}><span>{room.status}</span><h2>{room.room}</h2><p>{room.category} • {room.guest}</p><strong>{room.action}</strong></article>)}
+          </div>
+        </div>
+        <div>
+          <p className="eyebrow">Sports utilization</p>
+          <h2>Facility owners can watch coaching and slot demand.</h2>
+          <div className="activityList compact">
+            {sportsSchedule.map((slot) => <article className="activityCard" key={slot.court}><span>{slot.utilization}</span><h2>{slot.sport}</h2><p>{slot.court} • Next {slot.nextSlot}</p><strong>{slot.coach}</strong></article>)}
+          </div>
+        </div>
+        <div>
+          <p className="eyebrow">Loyalty health</p>
+          <h2>Membership tiers are visible to CRM and finance.</h2>
+          <div className="activityList compact">
+            {loyaltyTiers.map((tier) => <article className="activityCard" key={tier.name}><span>{tier.members}</span><h2>{tier.name}</h2><p>{tier.benefit}</p><strong>{tier.nextAction}</strong></article>)}
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import { adminMetrics, bookingSteps, experiences, menuItems, roles } from "@/lib/platform-data";
 import { auditEvents, customerActivities, kitchenOrders, staffRecords } from "@/lib/operations-data";
+import { availabilitySlots, loyaltyTiers, testimonials } from "@/lib/portal-data";
 
 const navigation = [
   { label: "Restaurant", href: "/menu" },
@@ -164,6 +165,54 @@ export default function Home() {
               <p>{step.description}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="sectionWrap liveBooking">
+        <div className="sectionIntro wide">
+          <p className="eyebrow">Live availability layer</p>
+          <h2>Customers can see what is bookable before staff touch a calendar.</h2>
+        </div>
+        <div className="availabilityGrid">
+          {availabilitySlots.map((slot) => (
+            <article className="availabilityCard" key={slot.id}>
+              <span>{slot.module}</span>
+              <h3>{slot.resource}</h3>
+              <p>{slot.time} • {slot.capacity}</p>
+              <strong>{slot.price}</strong>
+              <em>{slot.status}</em>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="sectionWrap twoColumn">
+        <div>
+          <p className="eyebrow">Membership and loyalty</p>
+          <h2>Retention is built into the operating model.</h2>
+          <div className="activityList compact">
+            {loyaltyTiers.map((tier) => (
+              <article className="activityCard" key={tier.name}>
+                <span>{tier.members}</span>
+                <h3>{tier.name}</h3>
+                <p>{tier.benefit}</p>
+                <strong>{tier.nextAction}</strong>
+              </article>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="eyebrow">Guest confidence</p>
+          <h2>Social proof for dining, events and stays.</h2>
+          <div className="activityList compact">
+            {testimonials.map((item) => (
+              <article className="activityCard" key={item.guest}>
+                <span>{item.context}</span>
+                <p>“{item.quote}”</p>
+                <strong>{item.guest}</strong>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
