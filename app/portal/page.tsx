@@ -1,4 +1,5 @@
 import { customerActivities } from "@/lib/operations-data";
+import { getPortalSummary } from "@/lib/portal-service";
 import {
   accountSummary,
   portalAgenda,
@@ -11,6 +12,8 @@ import {
 } from "@/lib/portal-data";
 
 export default function PortalPage() {
+  const portalSummary = getPortalSummary();
+
   return (
     <main className="innerPage portalPage">
       <a className="backLink" href="/">← Restro Club</a>
@@ -21,6 +24,17 @@ export default function PortalPage() {
           The portal connects identity, ordering, bookings, stays, events, invoices, notifications, loyalty,
           support and preferences so every customer interaction can continue without staff re-entry.
         </p>
+      </section>
+
+      <section className="sectionWrap flushTop dashboardGrid expanded">
+        {portalSummary.metrics.map((metric) => (
+          <article className="metricCard" key={metric.label}>
+            <small>Portal</small>
+            <strong>{metric.value}</strong>
+            <span>{metric.label}</span>
+            <small>{metric.detail}</small>
+          </article>
+        ))}
       </section>
 
       <section className="sectionWrap flushTop portalCommandGrid">

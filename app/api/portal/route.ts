@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getPortalSummary } from "@/lib/portal-service";
 import {
   accountSummary,
   availabilitySlots,
@@ -33,6 +34,7 @@ export function GET() {
     requests: portalRequests,
     rooms: roomStatuses,
     sports: sportsSchedule,
+    summary: getPortalSummary(),
     testimonials,
   });
 }
