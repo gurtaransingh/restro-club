@@ -44,6 +44,38 @@ export type Testimonial = {
   context: string;
 };
 
+export type AccountSummary = {
+  guest: string;
+  tier: string;
+  memberSince: string;
+  homeLocation: string;
+  relationshipManager: string;
+  walletBalance: string;
+  loyaltyPoints: string;
+  nextReward: string;
+};
+
+export type PortalAgendaItem = {
+  time: string;
+  module: "Dining" | "Sports" | "Stay" | "Pool" | "Event";
+  title: string;
+  status: string;
+  action: string;
+};
+
+export type PortalPreference = {
+  label: string;
+  value: string;
+  owner: "Kitchen" | "Sports" | "Stay" | "CRM";
+};
+
+export type PortalRequest = {
+  id: string;
+  topic: string;
+  status: "Open" | "In review" | "Resolved";
+  nextStep: string;
+};
+
 export const availabilitySlots: AvailabilitySlot[] = [
   { id: "AVL-101", module: "Restaurant", resource: "Garden Deck Table", time: "Today 8:30 PM", capacity: "4 guests", price: "₹500 booking credit", status: "Fast filling" },
   { id: "AVL-102", module: "Sports", resource: "Pickleball Court 1", time: "Tomorrow 7:00 AM", capacity: "4 players", price: "₹900 / slot", status: "Available" },
@@ -80,4 +112,35 @@ export const testimonials: Testimonial[] = [
   { quote: "Dinner, pool access and the stay booking felt like one coordinated luxury experience.", guest: "Mehta Family", context: "Weekend stay package" },
   { quote: "The QR ordering flow kept our birthday cabana service fast without disturbing the party.", guest: "Anika S.", context: "Private pool event" },
   { quote: "Sports slots, invoices and rewards are easy to track from the same account.", guest: "Gold Member", context: "Monthly club user" },
+];
+
+export const accountSummary: AccountSummary = {
+  guest: "Aarav Mehta",
+  tier: "Gold Club Member",
+  memberSince: "Member since April 2026",
+  homeLocation: "Banur / Mohali flagship",
+  relationshipManager: "Mehak Arora",
+  walletBalance: "₹4,250",
+  loyaltyPoints: "2,840 pts",
+  nextReward: "₹750 dining credit unlocks at 3,000 pts",
+};
+
+export const portalAgenda: PortalAgendaItem[] = [
+  { time: "Today 8:20 PM", module: "Dining", title: "Dinner order at Table 24", status: "Preparing", action: "Track kitchen status" },
+  { time: "Tomorrow 7:00 AM", module: "Sports", title: "Pickleball Court 1", status: "Confirmed", action: "Add player names" },
+  { time: "Aug 22, 2:00 PM", module: "Stay", title: "2 BHK Club Suite check-in", status: "Deposit paid", action: "Upload guest IDs" },
+  { time: "Aug 28, 4:00 PM", module: "Pool", title: "Birthday cabana enquiry", status: "Quote shared", action: "Approve package" },
+];
+
+export const portalPreferences: PortalPreference[] = [
+  { label: "Dietary notes", value: "No raw onion, medium spice, prefers Jain options for family events", owner: "Kitchen" },
+  { label: "Sports default", value: "Pickleball mornings, needs one rental paddle", owner: "Sports" },
+  { label: "Stay setup", value: "Quiet room, extra pillows, late checkout when available", owner: "Stay" },
+  { label: "Communication", value: "WhatsApp confirmations, email invoices, no promotional SMS after 9 PM", owner: "CRM" },
+];
+
+export const portalRequests: PortalRequest[] = [
+  { id: "REQ-1180", topic: "Apply Gold discount to pool cabana quote", status: "In review", nextStep: "CRM approval due today" },
+  { id: "REQ-1172", topic: "Invoice GST details for sports booking", status: "Resolved", nextStep: "Invoice emailed to account" },
+  { id: "REQ-1164", topic: "Add birthday dessert note to dinner reservation", status: "Open", nextStep: "Restaurant manager to confirm" },
 ];
