@@ -170,3 +170,62 @@ td span { color: var(--gold); display: block; font-size: .85rem; margin-top: .25
   .portalForm, .threeColumnOps { grid-template-columns: 1fr; }
   .wideField { grid-column: auto; }
 }
+
+.accountCommand {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, .6fr);
+}
+.profileCard, .walletCard {
+  background: linear-gradient(145deg, rgba(255, 248, 235, .16), rgba(255, 255, 255, .06));
+  border: 1px solid var(--line);
+  border-radius: 32px;
+  box-shadow: var(--shadow);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+.profileCard span, .walletCard span {
+  color: var(--gold-bright);
+  font-size: .75rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.profileCard h2, .walletCard h2 {
+  margin-top: .65rem;
+}
+.profileCard p, .walletCard p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+.profileCard strong, .walletCard strong {
+  color: var(--gold-bright);
+  display: block;
+  margin-top: 1rem;
+}
+
+@media (max-width: 920px) {
+  .accountCommand { grid-template-columns: 1fr; }
+}
+
+.portalPage { background: radial-gradient(circle at 70% 0%, rgba(216, 181, 109, .16), transparent 28rem), var(--bg); }
+.portalHero h1 { max-width: 1180px; }
+.portalCommandGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(280px, .8fr) minmax(0, 1.2fr);
+}
+.featuredProfile {
+  align-content: center;
+  display: grid;
+  min-height: 100%;
+}
+.portalActionPanel {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+@media (max-width: 920px) {
+  .portalCommandGrid { grid-template-columns: 1fr; }
+}
