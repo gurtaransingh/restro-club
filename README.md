@@ -3,6 +3,7 @@
 Restro Club is a Next.js and TypeScript foundation for a premium hospitality, restaurant, sports, pool, accommodation, events and operations platform.
 
 The current implementation provides a polished public landing page and product documentation for a long-term, multi-location-ready business system.
+The first implementation establishes a luxury public landing page and a documented product roadmap for a long-term, multi-location-ready business system.
 
 ## Commands
 
@@ -19,6 +20,11 @@ npm run build
 - Customer CTAs for table reservations, food ordering, sports, stays, events and membership.
 - Operational platform positioning for kitchen, inventory, bookings, HR, payroll, payments, notifications, analytics and super-admin workflows.
 - Product roadmap, data-model, security and implementation planning docs.
+- Next.js App Router project structure.
+- Luxury mobile-first landing page for the Restro Club brand.
+- Customer CTAs for table reservations, food ordering, sports, stays, events and membership.
+- Operational platform positioning for kitchen, inventory, bookings, HR, payroll, payments, notifications, analytics and super-admin workflows.
+- Product roadmap and data-model planning docs.
 
 ## Product documentation
 
@@ -27,3 +33,6 @@ npm run build
 - [`docs/architecture/module-boundaries.md`](docs/architecture/module-boundaries.md) — modular application boundaries and future service extraction plan.
 - [`docs/architecture/security.md`](docs/architecture/security.md) — security, RBAC, audit and operational-control plan.
 - [`docs/implementation-plan.md`](docs/implementation-plan.md) — milestone plan for building the production platform.
+## Product direction
+
+See [`docs/product-roadmap.md`](docs/product-roadmap.md) for the phased product plan and architecture principles.
