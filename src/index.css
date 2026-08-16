@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    
+    /* Major Color Palette */
+    --color-bg-canvas: #FAF8F3;         /* Light warm cream background */
+    --color-bg-surface: #FFFFFF;        /* Elevated white card surface */
+    --color-bg-subtle: #F2ECE1;         /* Warm subtle container */
+    --color-tan: #8C5A3C;               /* Tan Brown - Color One */
+    --color-tan-hover: #73482E;
+    --color-tan-light: #F7EFE8;
+    --color-military: #3E4A38;          /* Military Green - Color Two */
+    --color-military-hover: #2D3728;
+    --color-military-light: #ECF0EA;
+    --color-text-main: #1E241D;         /* High-contrast charcoal text */
+    --color-text-muted: #5C554E;        /* Warm muted earth text */
+    --color-border: #E5DEC9;            /* Subtle light border */
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-main);
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, .font-serif-title {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Custom Palette Utility Classes */
+.bg-canvas { background-color: #FAF8F3; }
+.bg-surface { background-color: #FFFFFF; }
+.bg-subtle { background-color: #F2ECE1; }
+
+.bg-tan { background-color: #8C5A3C; }
+.bg-tan-hover:hover { background-color: #73482E; }
+.bg-tan-light { background-color: #F7EFE8; }
+.text-tan { color: #8C5A3C; }
+.border-tan { border-color: #8C5A3C; }
+
+.bg-military { background-color: #3E4A38; }
+.bg-military-hover:hover { background-color: #2D3728; }
+.bg-military-light { background-color: #ECF0EA; }
+.text-military { color: #3E4A38; }
+.border-military { border-color: #3E4A38; }
+
+/* Rounded Cards & Elements System */
+.card-rounded { border-radius: 1rem; }
+.card-rounded-lg { border-radius: 1.5rem; }
+.card-rounded-xl { border-radius: 2rem; }
+.btn-pill { border-radius: 9999px; }
+.badge-pill { border-radius: 9999px; }
+
+/* Custom Scrollbars */
+.no-scrollbar::-webkit-scrollbar,
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar,
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer utilities {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 1rem);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 1rem);
+  }
+}
+
+/* ==========================================================
+   DEFAULT LIGHT THEME & MAP OVERRIDES
+   ========================================================== */
+html,
+html.light,
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+html body,
+html.light body,
+html[data-theme="light"] body {
+  background-color: #FAF8F3 !important;
+  color: #1E241D !important;
+}
+
+/* Background Mapping to Light Tan & Military System */
+html .bg-\[\#0A0A0A\],
+html.light .bg-\[\#0A0A0A\],
+html .bg-\[\#0B0C10\],
+html.light .bg-\[\#0B0C10\],
+html .bg-\[\#070707\],
+html.light .bg-\[\#070707\] {
+  background-color: #FAF8F3 !important;
+}
+
+html .bg-\[\#0F0F0F\],
+html.light .bg-\[\#0F0F0F\],
+html .bg-\[\#141414\],
+html.light .bg-\[\#141414\],
+html .bg-\[\#181818\],
+html.light .bg-\[\#181818\],
+html .bg-\[\#1A1A1A\],
+html.light .bg-\[\#1A1A1A\],
+html .bg-\[\#1E1E1E\],
+html.light .bg-\[\#1E1E1E\] {
+  background-color: #FFFFFF !important;
+  box-shadow: 0 4px 20px -2px rgba(62, 74, 56, 0.06), 0 2px 6px -1px rgba(140, 90, 60, 0.04) !important;
+}
+
+/* Header & Navigation Elements */
+html header,
+html.light header {
+  background-color: rgba(250, 248, 243, 0.92) !important;
+  border-bottom-color: rgba(229, 222, 201, 0.9) !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 2px 12px rgba(62, 74, 56, 0.05) !important;
+}
+
+html footer,
+html.light footer {
+  background-color: #3E4A38 !important;
+  color: #EBF0EA !important;
+  border-color: rgba(235, 240, 234, 0.15) !important;
+}
+
+html footer .text-white,
+html.light footer .text-white {
+  color: #FFFFFF !important;
+}
+
+html footer .text-white\/60,
+html.light footer .text-white\/60,
+html footer .text-white\/50,
+html.light footer .text-white\/50 {
+  color: #D3DDD0 !important;
+}
+
+/* Text Colors */
+html .text-white,
+html.light .text-white {
+  color: #1E241D !important;
+}
+
+html .text-white\/90,
+html.light .text-white\/90 {
+  color: #2D3728 !important;
+}
+
+html .text-white\/80,
+html.light .text-white\/80 {
+  color: #3E4A38 !important;
+}
+
+html .text-white\/70,
+html.light .text-white\/70,
+html .text-white\/60,
+html.light .text-white\/60 {
+  color: #5C554E !important;
+}
+
+html .text-white\/50,
+html.light .text-white\/50,
+html .text-white\/40,
+html.light .text-white\/40 {
+  color: #857D74 !important;
+}
+
+/* Amber/Gold Accent Mapping to Tan Brown & Military Green */
+html .text-amber-400,
+html.light .text-amber-400 {
+  color: #8C5A3C !important;
+}
+
+html .bg-amber-400,
+html.light .bg-amber-400 {
+  background-color: #8C5A3C !important;
+  color: #FFFFFF !important;
+}
+
+html .hover\:bg-amber-300:hover,
+html.light .hover\:bg-amber-300:hover {
+  background-color: #73482E !important;
+  color: #FFFFFF !important;
+}
+
+html .border-amber-400,
+html.light .border-amber-400,
+html .border-amber-400\/30,
+html.light .border-amber-400\/30 {
+  border-color: #8C5A3C !important;
+}
+
+html .bg-amber-400\/10,
+html.light .bg-amber-400\/10 {
+  background-color: rgba(140, 90, 60, 0.1) !important;
+}
+
+/* Borders */
+html .border-white\/10,
+html.light .border-white\/10 {
+  border-color: #E5DEC9 !important;
+}
+
+html .border-white\/20,
+html.light .border-white\/20 {
+  border-color: #D6CDB8 !important;
+}
+
+html .border-white\/30,
+html.light .border-white\/30 {
+  border-color: #C2B69D !important;
+}
+
+/* Subtle Overlays */
+html .bg-white\/5,
+html.light .bg-white\/5 {
+  background-color: rgba(62, 74, 56, 0.04) !important;
+}
+
+html .bg-white\/10,
+html.light .bg-white\/10 {
+  background-color: rgba(62, 74, 56, 0.08) !important;
+}
+
+html .bg-white\/20,
+html.light .bg-white\/20 {
+  background-color: rgba(62, 74, 56, 0.12) !important;
+}
+
+/* Form inputs in Light Theme */
+html input,
+html.light input,
+html select,
+html.light select,
+html textarea,
+html.light textarea {
+  background-color: #FFFFFF !important;
+  color: #1E241D !important;
+  border-color: #D6CDB8 !important;
+}
+
+html input::placeholder,
+html.light input::placeholder,
+html textarea::placeholder,
+html.light textarea::placeholder {
+  color: #857D74 !important;
+}
+
