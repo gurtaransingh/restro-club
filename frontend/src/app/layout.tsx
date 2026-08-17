@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '../styles/globals.css';
 import { AppProvider } from '../context/AppContext';
 import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 import { BottomNav } from '../components/BottomNav';
 import { CartDrawer } from '../components/CartDrawer';
 import { BookingModal } from '../components/BookingModal';
@@ -30,6 +31,7 @@ export default function RootLayout({
         <AppProvider>
           <Header />
           <main className="flex-1">{children}</main>
+          <Footer />
           <CartDrawer />
           <BookingModal />
           <BottomNav />
