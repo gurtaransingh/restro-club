@@ -2,173 +2,189 @@
 
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { CalendarDays, Users, Sparkles, CheckCircle2, Send, PhoneCall } from 'lucide-react';
+import { CalendarDays, Sparkles, CheckCircle2, Send, Phone, Mail } from 'lucide-react';
 
 export default function EventsPage() {
   const { activeLocation, createEventEnquiry } = useApp();
-  const [eventType, setEventType] = useState<string>('Wedding & Reception');
-  const [estimatedGuests, setEstimatedGuests] = useState<number>(150);
-  const [preferredDate, setPreferredDate] = useState<string>(new Date().toISOString().split('T')[0]);
-  const [contactName, setContactName] = useState<string>('');
-  const [specialRequirements, setSpecialRequirements] = useState<string>('');
-  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [formData, setFormData] = useState({
+    eventType: 'Grand Wedding Reception',
+    estimatedGuests: '150',
+    preferredDate: '',
+    contactName: '',
+    specialRequirements: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!contactName) return;
+    if (!formData.contactName) return;
     await createEventEnquiry({
-      eventType,
-      estimatedGuests,
-      preferredDate,
-      contactName,
-      specialRequirements,
+      eventType: formData.eventType,
+      estimatedGuests: Number(formData.estimatedGuests) || 150,
+      preferredDate: formData.preferredDate || new Date().toISOString().split('T')[0],
+      contactName: formData.contactName,
+      specialRequirements: formData.specialRequirements,
     });
     setSubmitted(true);
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F3] text-[#1E241D] pb-24 space-y-12">
-      {/* Header */}
-      <section className="bg-[#EDE6D8] py-12 px-4 sm:px-6 lg:px-8 border-b border-[#E5DEC9]">
-        <div className="max-w-7xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#8C5A3C]/15 border border-[#8C5A3C]/30 text-[#8C5A3C] text-[10px] font-bold uppercase tracking-[0.2em] rounded-full">
-            <CalendarDays className="w-3.5 h-3.5" />
-            <span>Grand Banquets & Lawns • {activeLocation.name}</span>
+    <div className="min-h-screen bg-[#0A0A0A] text-white pb-24">
+      {/* Hero Header */}
+      <section className="bg-[#0A0A0A] py-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-400/10 border border-amber-400/30 text-amber-400 text-[9px] font-bold uppercase tracking-[0.2em] mb-2 rounded-full">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>Bespoke Celebrations</span>
+            </div>
+            <h1 className="font-serif italic text-4xl sm:text-6xl font-bold">Banquets & Private Events</h1>
+            <p className="text-xs sm:text-sm text-white/60 mt-2 max-w-xl uppercase tracking-wider">
+              Host grand celebrations, corporate summits, weddings & poolside galas at {activeLocation.name}.
+            </p>
           </div>
-          <h1 className="font-serif italic text-4xl sm:text-5xl font-bold text-[#1E241D]">
-            Banquets, Weddings & Corporate Summits
-          </h1>
-          <p className="text-xs sm:text-sm text-[#5C554E] max-w-xl">
-            Lush manicured open lawns, private banquet halls, Michelin custom catering, and valet parking for up to 1,000 guests.
-          </p>
         </div>
       </section>
 
-      {/* Inquiry Form & Venue Showcase */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-7 space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-white border border-[#E5DEC9] rounded-3xl p-6 shadow-sm space-y-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#8C5A3C]">Grand Ballroom</span>
-              <h3 className="font-serif italic text-xl font-bold text-[#1E241D]">Royal Banquet Hall</h3>
-              <p className="text-xs text-[#5C554E]">Air-conditioned ballroom with chandeliers, stage lighting and private green rooms.</p>
-              <span className="text-xs font-bold text-[#3E4A38] block pt-2">Capacity: 400 Guests</span>
-            </div>
-
-            <div className="bg-white border border-[#E5DEC9] rounded-3xl p-6 shadow-sm space-y-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#8C5A3C]">Open Air</span>
-              <h3 className="font-serif italic text-xl font-bold text-[#1E241D]">The Emerald Lawn</h3>
-              <p className="text-xs text-[#5C554E]">Sprawling lawn with fairy light canopies, live BBQ stations and poolside views.</p>
-              <span className="text-xs font-bold text-[#3E4A38] block pt-2">Capacity: 1,000 Guests</span>
-            </div>
-          </div>
-
-          <div className="bg-[#EDE6D8] border border-[#E5DEC9] rounded-3xl p-6 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#8C5A3C] text-white flex items-center justify-center shrink-0">
-              <PhoneCall className="w-6 h-6" />
-            </div>
+      {/* Main Content */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          
+          {/* Form */}
+          <div className="bg-[#141414] border border-white/10 rounded-3xl p-8 space-y-6 shadow-xl">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#8C5A3C]">Direct Concierge</span>
-              <h4 className="font-serif italic text-lg font-bold text-[#1E241D]">+91 (800) 555-0199</h4>
-              <p className="text-xs text-[#5C554E]">Speak directly with Banquet Lead Priya Sharma for custom dates.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Inquiry Box */}
-        <div className="lg:col-span-5">
-          <div className="bg-white border border-[#E5DEC9] rounded-3xl p-6 sm:p-8 shadow-md space-y-6">
-            <div>
-              <h3 className="font-serif italic text-2xl font-bold text-[#1E241D]">Request Event Quotation</h3>
-              <p className="text-xs text-[#5C554E]">Receive a bespoke event proposal and menu plan within 24 hours.</p>
+              <span className="text-[9px] font-bold text-amber-400 uppercase tracking-[0.2em] block">Bespoke Concierge</span>
+              <h2 className="font-serif italic text-3xl font-bold text-white mt-1">Submit Event Enquiry</h2>
+              <p className="text-xs text-white/60 mt-1 uppercase tracking-wider">
+                Our master event directors will curate a custom proposal within 2 hours.
+              </p>
             </div>
 
             {submitted ? (
-              <div className="py-8 text-center space-y-3">
-                <div className="w-14 h-14 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center mx-auto shadow-sm">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
-                <h4 className="font-serif italic text-xl font-bold text-[#1E241D]">Enquiry Received!</h4>
-                <p className="text-xs text-[#5C554E]">Our Banquet Concierge will call you at the earliest to discuss details.</p>
+              <div className="p-8 text-center space-y-4 bg-[#0A0A0A] border border-white/10 rounded-2xl">
+                <CheckCircle2 className="w-12 h-12 text-amber-400 mx-auto" />
+                <h3 className="font-serif italic text-2xl font-bold text-white">Enquiry Received</h3>
+                <p className="text-xs text-white/60 uppercase tracking-wider">
+                  Our Senior Event Director for <span className="text-amber-400 font-bold">{activeLocation.name}</span> will contact you directly.
+                </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="px-5 py-2.5 bg-[#FAF8F3] border border-[#E5DEC9] text-xs font-bold uppercase rounded-xl hover:bg-[#EDE6D8]"
+                  className="px-6 py-3 bg-amber-400 text-black text-xs font-bold uppercase tracking-widest rounded-full hover:bg-amber-300 cursor-pointer shadow-md shadow-amber-400/20"
                 >
-                  Send Another Enquiry
+                  Submit Another Enquiry
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-[#5C554E]">Event Type</label>
+                <div>
+                  <label className="block text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1.5">
+                    Event Type
+                  </label>
                   <select
-                    value={eventType}
-                    onChange={(e) => setEventType(e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-xs bg-[#FAF8F3] border border-[#E5DEC9] rounded-xl focus:outline-none focus:border-[#8C5A3C]"
+                    value={formData.eventType}
+                    onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
+                    className="w-full bg-[#0A0A0A] border border-white/20 text-white px-3.5 py-2.5 text-xs font-medium focus:outline-none focus:border-amber-400 rounded-full"
                   >
-                    <option value="Wedding & Reception">Wedding & Reception</option>
-                    <option value="Corporate Summit & Gala">Corporate Summit & Gala</option>
-                    <option value="Cocktail & Mixer">Cocktail & Mixer</option>
-                    <option value="Private Birthday / Anniversary">Private Birthday / Anniversary</option>
+                    <option value="Grand Wedding Reception">Grand Wedding Reception</option>
+                    <option value="Corporate Executive Summit">Corporate Executive Summit</option>
+                    <option value="VIP Cocktail & Poolside Gala">VIP Cocktail & Poolside Gala</option>
+                    <option value="Private Dining Experience">Private Dining Experience</option>
                   </select>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-[#5C554E]">Estimated Guests</label>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1.5">
+                      Estimated Guests
+                    </label>
                     <input
-                      type="number"
-                      min="20"
-                      max="2000"
-                      value={estimatedGuests}
-                      onChange={(e) => setEstimatedGuests(Number(e.target.value))}
-                      className="w-full px-3.5 py-2.5 text-xs bg-[#FAF8F3] border border-[#E5DEC9] rounded-xl focus:outline-none focus:border-[#8C5A3C]"
+                      type="text"
+                      value={formData.estimatedGuests}
+                      onChange={(e) => setFormData({ ...formData, estimatedGuests: e.target.value })}
+                      className="w-full bg-[#0A0A0A] border border-white/20 text-white px-3.5 py-2.5 text-xs font-medium focus:outline-none focus:border-amber-400 rounded-full"
                     />
                   </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-[#5C554E]">Preferred Date</label>
+
+                  <div>
+                    <label className="block text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1.5">
+                      Preferred Date
+                    </label>
                     <input
                       type="date"
-                      value={preferredDate}
-                      onChange={(e) => setPreferredDate(e.target.value)}
-                      className="w-full px-3.5 py-2.5 text-xs bg-[#FAF8F3] border border-[#E5DEC9] rounded-xl focus:outline-none focus:border-[#8C5A3C]"
+                      value={formData.preferredDate}
+                      onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
+                      className="w-full bg-[#0A0A0A] border border-white/20 text-white px-3.5 py-2.5 text-xs font-medium focus:outline-none focus:border-amber-400 rounded-full"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-[#5C554E]">Contact Name & Phone</label>
+                <div>
+                  <label className="block text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1.5">
+                    Your Name
+                  </label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. S. Gurtaran Singh (+91 98000 00000)"
-                    value={contactName}
-                    onChange={(e) => setContactName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-xs bg-[#FAF8F3] border border-[#E5DEC9] rounded-xl focus:outline-none focus:border-[#8C5A3C]"
+                    placeholder="Enter your full name"
+                    value={formData.contactName}
+                    onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                    className="w-full bg-[#0A0A0A] border border-white/20 text-white px-3.5 py-2.5 text-xs font-medium focus:outline-none focus:border-amber-400 rounded-full"
                   />
                 </div>
 
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-[#5C554E]">Special Requests</label>
+                <div>
+                  <label className="block text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1.5">
+                    Special Requirements / Theme Notes
+                  </label>
                   <textarea
-                    rows={2}
-                    placeholder="Catering preferences, decor themes, AV setups..."
-                    value={specialRequirements}
-                    onChange={(e) => setSpecialRequirements(e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-xs bg-[#FAF8F3] border border-[#E5DEC9] rounded-xl focus:outline-none focus:border-[#8C5A3C]"
+                    value={formData.specialRequirements}
+                    onChange={(e) => setFormData({ ...formData, specialRequirements: e.target.value })}
+                    placeholder="E.g., Require stage setup, acoustic PA system, custom live bar..."
+                    className="w-full bg-[#0A0A0A] border border-white/20 text-white p-3.5 text-xs focus:outline-none focus:border-amber-400 h-24 resize-none rounded-2xl"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-[#8C5A3C] hover:bg-[#73482E] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-4 bg-amber-400 text-black font-bold text-xs uppercase tracking-widest rounded-full hover:bg-amber-300 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-amber-400/20"
                 >
-                  <Send className="w-4 h-4" />
-                  <span>Submit Event Enquiry</span>
+                  <Send className="w-4 h-4 text-black" />
+                  <span>Request Event Proposal</span>
                 </button>
               </form>
             )}
           </div>
+
+          {/* Event Venue Showcase */}
+          <div className="space-y-6">
+            <div className="bg-[#141414] border border-white/10 rounded-3xl p-6 space-y-4 shadow-xl">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhRwhwNCnhGzEclW5wbJU9UAbHH-mWDdGdmwxvOlfBWMDE-wGGZcA_CSA-p2xEKrkKujkThGkp37RRXeKQqPl7P2VqP9DJ8NYQPXn3L7b2Ii7B-3xu-bRZdzREMnqGgvzDM2-XvHLuZ6Y09GWkL1pPILOharxTqe9474grm8blS32EnKUBpBqrbRiNmgH2izXlBojGRWoQsn9jJu6rKYl8VSPxIXPfQrBdz2WG-VG_ybPoDMRd3VQ8Tg"
+                alt="Banquet Hall"
+                className="w-full h-64 object-cover border border-white/10 rounded-2xl"
+              />
+              <div>
+                <span className="text-[9px] font-bold text-amber-400 uppercase tracking-widest">Venue Highlight</span>
+                <h3 className="font-serif italic text-2xl font-bold text-white mt-0.5">The Sovereign Banquet Hall</h3>
+                <p className="text-xs text-white/60 mt-1 uppercase tracking-wider">
+                  Capacity: Up to 500 Guests • Climate-controlled • Integrated AV & Stage
+                </p>
+              </div>
+            </div>
+
+            <div className="p-6 bg-[#141414] border border-white/10 rounded-3xl space-y-3 shadow-xl">
+              <h4 className="font-serif italic text-xl font-bold text-white">Direct Concierge Desk</h4>
+              <div className="flex items-center gap-3 text-xs text-white/70">
+                <Phone className="w-4 h-4 text-amber-400" />
+                <span>+91 1800 RESTRO CLUB</span>
+              </div>
+              <div className="flex items-center gap-3 text-xs text-white/70">
+                <Mail className="w-4 h-4 text-amber-400" />
+                <span>events@{activeLocation.code.toLowerCase()}.restroclub.com</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
     </div>

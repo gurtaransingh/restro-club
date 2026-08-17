@@ -5,17 +5,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useApp } from '../../context/AppContext';
 import {
+  Lock,
+  User,
+  KeyRound,
   Shield,
   ChefHat,
   Crown,
   Briefcase,
   Trophy,
   BedDouble,
-  User,
-  LogIn,
+  ArrowRight,
   AlertCircle,
   Sparkles,
-  ArrowRight,
 } from 'lucide-react';
 
 export default function LoginPage() {
@@ -25,84 +26,77 @@ export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const sampleRoles = [
+  const testLogins = [
     {
       id: 'admin',
       pass: 'admin',
-      role: 'Super Admin',
-      cat: 'SUPER_ADMIN',
-      desc: 'Full Location & Master Tables CRUD, Finance, HR',
+      role: 'Super Administrator',
+      badge: 'All Permissions',
       icon: Shield,
       target: '/admin',
-      badgeBg: 'bg-amber-100 text-amber-900 border-amber-300',
+      color: 'bg-gradient-to-r from-[#8C5A3C] to-[#6E442B] text-white',
     },
     {
       id: 'c1',
       pass: 'c1',
-      role: 'Executive Chef',
-      cat: 'CHEF',
-      desc: 'Live Kitchen Display System (KDS) & Menu Toggles',
+      role: 'Executive Chef (Chef Julian)',
+      badge: 'Kitchen KDS',
       icon: ChefHat,
       target: '/kitchen',
-      badgeBg: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+      color: 'bg-white',
     },
     {
       id: 'm1',
       pass: 'm1',
       role: 'General Manager',
-      cat: 'MANAGER',
-      desc: 'Operations, Finance Analytics & Staff Attendance',
+      badge: 'Property Operations',
       icon: Briefcase,
       target: '/admin',
-      badgeBg: 'bg-blue-100 text-blue-900 border-blue-300',
+      color: 'bg-white',
     },
     {
       id: 'e1',
       pass: 'e1',
-      role: 'Event Manager',
-      cat: 'EVENT_MANAGER',
-      desc: 'Banquets CRM, Lawns & Member Events',
+      role: 'Banquets Lead (Priya Sharma)',
+      badge: 'Event CRM',
       icon: Crown,
       target: '/admin/masters',
-      badgeBg: 'bg-purple-100 text-purple-900 border-purple-300',
+      color: 'bg-white',
     },
     {
       id: 's1',
       pass: 's1',
-      role: 'Sports Coach',
-      cat: 'SPORTS_COACH',
-      desc: 'Pickleball, Box Cricket & Court Bookings',
+      role: 'Sports Arena Coach (Vikram)',
+      badge: 'Court Bookings',
       icon: Trophy,
       target: '/sports',
-      badgeBg: 'bg-orange-100 text-orange-900 border-orange-300',
+      color: 'bg-white',
     },
     {
       id: 'st1',
       pass: 'st1',
-      role: 'Stays Lead',
-      cat: 'STAYS_DESK',
-      desc: 'Suites, 1BHK/2BHK Stays & Housekeeping',
+      role: 'Suites Lead (Sunil Mehta)',
+      badge: 'Accommodations',
       icon: BedDouble,
       target: '/stays',
-      badgeBg: 'bg-teal-100 text-teal-900 border-teal-300',
+      color: 'bg-white',
     },
     {
       id: 'u1',
       pass: 'u1',
-      role: 'Club Member',
-      cat: 'MEMBER',
-      desc: 'Food orders, court slots & loyalty ledger',
+      role: 'Club Member (Kabir Singh)',
+      badge: 'Elite Tier',
       icon: User,
       target: '/profile',
-      badgeBg: 'bg-stone-100 text-stone-900 border-stone-300',
+      color: 'bg-white',
     },
   ];
 
   const handleLogin = async (u: string, p: string, redirectTarget?: string) => {
     setError(null);
-    setIsLoading(true);
+    setLoading(true);
 
     try {
       const res = await login(u, p);
@@ -124,133 +118,178 @@ export default function LoginPage() {
     } catch (err: any) {
       setError(err?.message || 'Login error.');
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
-  };
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!username || !password) {
-      setError('Please enter both ID and Password.');
-      return;
-    }
-    handleLogin(username, password);
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F3] text-[#1E241D] py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto space-y-10">
+    <div className="min-h-screen bg-[#FAF8F3] text-[#1E241D] py-12 px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+      <div className="max-w-4xl mx-auto w-full space-y-12">
         {/* Header */}
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#8C5A3C]/15 border border-[#8C5A3C]/30 text-[#8C5A3C] text-[10px] font-bold uppercase tracking-[0.2em] rounded-full">
-            <Shield className="w-3.5 h-3.5" />
-            <span>Restro Club Unified Authentication</span>
+        <div className="text-center space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#8C5A3C]/10 border border-[#8C5A3C]/20 text-[#8C5A3C] text-[10px] font-bold uppercase tracking-[0.2em] rounded-full shadow-sm">
+            <Lock className="w-3.5 h-3.5" />
+            <span>Restro Club Portal Authentication</span>
           </div>
-          <h1 className="font-serif italic text-3xl sm:text-5xl font-bold text-[#1E241D]">
-            Sign In to Restro Club
+          <h1 className="font-serif italic text-4xl sm:text-5xl font-bold text-[#1E241D]">
+            Sign In to Your Workspace
           </h1>
-          <p className="text-xs sm:text-sm text-[#5C554E] max-w-md mx-auto">
-            Access your personalized role workspace, executive command center, KDS station, or member profile.
+          <p className="text-xs sm:text-sm text-[#5C554E] max-w-lg mx-auto">
+            Enter your authorized access credentials below. Super administrators and department leads will be routed to their respective command centers.
           </p>
         </div>
 
-        {/* Main Grid: Form on Left, 1-Click Role shortcuts on Right */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-          {/* Credential Form */}
-          <div className="md:col-span-6 bg-white border border-[#E5DEC9] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-            <div className="border-b border-[#E5DEC9] pb-4">
-              <h2 className="font-serif italic text-xl font-bold text-[#1E241D]">Credentials Sign In</h2>
-              <p className="text-xs text-[#5C554E]">Enter your user ID, username, or registered email.</p>
+        {/* Main Form & Credentials Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Direct Login Form */}
+          <div className="lg:col-span-6 bg-white border border-[#E5DEC9] rounded-3xl p-8 shadow-sm space-y-6">
+            <div className="flex items-center justify-between border-b border-[#E5DEC9] pb-4">
+              <div>
+                <h2 className="text-base font-bold text-[#1E241D]">Credentials Login</h2>
+                <p className="text-[11px] text-[#5C554E]">Enter username/ID and password</p>
+              </div>
+              <KeyRound className="w-5 h-5 text-[#8C5A3C]" />
             </div>
 
             {error && (
-              <div className="p-3.5 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0" />
+              <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 flex-shrink-0" />
                 <span>{error}</span>
               </div>
             )}
 
-            <form onSubmit={onSubmit} className="space-y-4">
-              <div className="space-y-1">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-[#5C554E]">User ID / Username</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. admin, c1, m1, u1"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-[#FAF8F3] border border-[#E5DEC9] rounded-xl focus:outline-none focus:border-[#8C5A3C]"
-                />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleLogin(username, password);
+              }}
+              className="space-y-4"
+            >
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-[#5C554E] block">
+                  Login ID / Username / Email
+                </label>
+                <div className="relative">
+                  <User className="w-4 h-4 text-[#8C5A3C] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="e.g. admin, c1, m1, u1"
+                    className="w-full pl-10 pr-4 py-3 bg-[#FAF8F3] border border-[#E5DEC9] rounded-xl text-xs text-[#1E241D] placeholder-[#5C554E]/60 focus:outline-none focus:border-[#8C5A3C]"
+                  />
+                </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-[#5C554E]">Password</label>
-                <input
-                  type="password"
-                  required
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-[#FAF8F3] border border-[#E5DEC9] rounded-xl focus:outline-none focus:border-[#8C5A3C]"
-                />
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-[#5C554E] block">
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock className="w-4 h-4 text-[#8C5A3C] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full pl-10 pr-4 py-3 bg-[#FAF8F3] border border-[#E5DEC9] rounded-xl text-xs text-[#1E241D] placeholder-[#5C554E]/60 focus:outline-none focus:border-[#8C5A3C]"
+                  />
+                </div>
               </div>
 
               <button
                 type="submit"
-                disabled={isLoading}
-                className="w-full py-3.5 bg-[#8C5A3C] hover:bg-[#73482E] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                disabled={loading}
+                className="w-full py-3.5 bg-[#8C5A3C] hover:bg-[#73482E] text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-md shadow-[#8C5A3C]/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
-                <LogIn className="w-4 h-4" />
-                <span>{isLoading ? 'Signing In...' : 'Authenticate Account'}</span>
+                {loading ? (
+                  <span>Authenticating...</span>
+                ) : (
+                  <>
+                    <span>Authenticate & Enter</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </form>
 
-            <div className="pt-4 border-t border-[#E5DEC9] text-center text-xs text-[#5C554E]">
-              <span>Don't have an active club ID? </span>
-              <Link href="/register" className="text-[#8C5A3C] font-bold hover:underline">
-                Join Restro Club
-              </Link>
+            <div className="pt-4 border-t border-[#E5DEC9] text-center">
+              <p className="text-xs text-[#5C554E]">
+                New to Restro Club?{' '}
+                <Link href="/register" className="text-[#8C5A3C] font-bold hover:underline">
+                  Create Member Account
+                </Link>
+              </p>
             </div>
           </div>
 
-          {/* 1-Click Role Cards */}
-          <div className="md:col-span-6 space-y-4">
-            <div className="bg-[#EDE6D8] border border-[#E5DEC9] rounded-2xl p-4 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#8C5A3C] shrink-0" />
-              <p className="text-xs text-[#1E241D] font-medium">
-                <strong>1-Click Test Personas:</strong> Click any card below to test authorized workflows immediately.
+          {/* Quick Role Shortcut Panel */}
+          <div className="lg:col-span-6 space-y-4">
+            <div className="bg-[#EDE6D8] border border-[#E5DEC9] p-5 rounded-2xl">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#1E241D] flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#8C5A3C]" />
+                <span>Quick Role Credentials</span>
+              </h3>
+              <p className="text-[11px] text-[#5C554E] mt-1">
+                Click any persona below to authenticate instantly:
               </p>
             </div>
 
-            <div className="space-y-2.5">
-              {sampleRoles.map((item) => {
-                const Icon = item.icon;
+            <div className="space-y-2.5 max-h-[480px] overflow-y-auto pr-1">
+              {testLogins.map((t) => {
+                const Icon = t.icon;
                 return (
                   <button
-                    key={item.id}
+                    key={t.id}
                     onClick={() => {
-                      setUsername(item.id);
-                      setPassword(item.pass);
-                      handleLogin(item.id, item.pass, item.target);
+                      setUsername(t.id);
+                      setPassword(t.pass);
+                      handleLogin(t.id, t.pass, t.target);
                     }}
-                    className="w-full text-left p-3.5 bg-white border border-[#E5DEC9] hover:border-[#8C5A3C] hover:shadow-md rounded-2xl transition-all flex items-center justify-between gap-3 group cursor-pointer"
+                    className={`w-full text-left p-4 rounded-2xl border transition-all hover:scale-[1.01] hover:shadow-md flex items-center justify-between gap-4 cursor-pointer ${
+                      t.color.includes('from')
+                        ? 'bg-gradient-to-r from-[#8C5A3C] to-[#6E442B] text-white border-[#73482E]'
+                        : 'bg-white border-[#E5DEC9] text-[#1E241D] hover:border-[#8C5A3C]'
+                    }`}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-[#FAF8F3] border border-[#E5DEC9] flex items-center justify-center group-hover:bg-[#8C5A3C] group-hover:text-white transition-colors text-[#8C5A3C]">
+                    <div className="flex items-center gap-3.5">
+                      <div
+                        className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                          t.color.includes('from') ? 'bg-white/20 text-white' : 'bg-[#F2ECE1] text-[#8C5A3C]'
+                        }`}
+                      >
                         <Icon className="w-5 h-5" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-[#1E241D]">{item.role}</span>
-                          <span className={`text-[9px] font-mono px-2 py-0.2 rounded-md font-semibold border ${item.badgeBg}`}>
-                            {item.id} / {item.pass}
+                          <span className="text-xs font-bold font-serif italic">{t.role}</span>
+                          <span
+                            className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                              t.color.includes('from')
+                                ? 'bg-white/20 text-white'
+                                : 'bg-[#8C5A3C]/10 text-[#8C5A3C]'
+                            }`}
+                          >
+                            {t.badge}
                           </span>
                         </div>
-                        <p className="text-[10px] text-[#5C554E] mt-0.5">{item.desc}</p>
+                        <p
+                          className={`text-[10px] mt-0.5 ${
+                            t.color.includes('from') ? 'text-white/80' : 'text-[#5C554E]'
+                          }`}
+                        >
+                          Login: <strong className="underline">{t.id}</strong> / Pass: <strong className="underline">{t.pass}</strong>
+                        </p>
                       </div>
                     </div>
 
-                    <ArrowRight className="w-4 h-4 text-[#5C554E] group-hover:text-[#8C5A3C] group-hover:translate-x-1 transition-all shrink-0" />
+                    <ArrowRight
+                      className={`w-4 h-4 flex-shrink-0 ${
+                        t.color.includes('from') ? 'text-white/80' : 'text-[#8C5A3C]'
+                      }`}
+                    />
                   </button>
                 );
               })}

@@ -6,193 +6,232 @@ import { useApp } from '../context/AppContext';
 import {
   UtensilsCrossed,
   Trophy,
-  Waves,
   BedDouble,
-  CalendarDays,
   Crown,
+  ChevronRight,
   Sparkles,
-  ArrowRight,
-  ShieldCheck,
-  Star,
   MapPin,
+  Star,
+  Award,
+  ArrowUpRight,
 } from 'lucide-react';
 
 export default function HomePage() {
-  const { activeLocation, openBookingModal } = useApp();
-
-  const luxuryPillars = [
-    {
-      title: 'Michelin Fine Dining',
-      desc: 'Pan-seared Hokkaido scallops, A5 Wagyu striploin, black truffle risottos, and craft cocktails.',
-      image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80',
-      href: '/restaurant',
-      tag: 'Culinary Excellence',
-    },
-    {
-      title: 'Championship Sports Arenas',
-      desc: 'BWF-standard synthetic badminton, Olympic lap pool, pro pickleball courts & turf box cricket.',
-      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80',
-      href: '/sports',
-      tag: 'Recreation & Athletics',
-    },
-    {
-      title: 'Boutique Resort Stays',
-      desc: '1BHK & 2BHK luxury suites, penthouse sanctuaries, personal butler concierge, and pool vistas.',
-      image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80',
-      href: '/stays',
-      tag: 'Luxury Hospitality',
-    },
-  ];
+  const { activeLocation } = useApp();
 
   return (
-    <div className="space-y-16 pb-24">
-      {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center justify-center bg-[#1E241D] text-white px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay scale-105 transform duration-1000"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80')`,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1E241D] via-transparent to-[#1E241D]/80" />
+    <div className="min-h-screen bg-[#FAF8F3] text-[#1E241D] pb-20">
+      
+      {/* Hero Banner Section */}
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-[#3E4A38] text-white border-b border-[#35402F]">
+        {/* Background Image with Ambient Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoXWDSThGlvVhvUCnA6BNvkgMbfcnIkVgQ1Rotp-D2NgsRbSabK3zTV2CG6hoRN8oa9hUFKBer0ydmG-5yV6-HfDn_frOTptn3UJo1B8vs7gMlsDTtDeZwdBryKYnu3mO4ksCtyIaDoOovnHG4xy2IbR2kKU0tAjlU8sPLFg9GOD0spYgOJHSmcPQxvT8HR-nLoMTYKomd9H9hb9Im0yHmyRSnJ9OF7NWVzh41dIDTUG0JvFGik4WqpQ"
+            alt="Restro Club Destination"
+            className="w-full h-full object-cover object-center opacity-35 scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#3E4A38] via-[#3E4A38]/70 to-transparent" />
+        </div>
 
-        <div className="relative max-w-4xl mx-auto text-center space-y-6 pt-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 text-[#EDE6D8] text-xs font-bold uppercase tracking-[0.25em] rounded-full shadow-lg">
-            <Sparkles className="w-3.5 h-3.5 text-[#8C5A3C]" />
-            <span>The Premier Highway Social Destination</span>
+        {/* Hero Content */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center text-white space-y-6 pt-12">
+          
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#8C5A3C]/20 border border-[#8C5A3C]/40 text-[#DBC7B5] rounded-full shadow-lg">
+            <Crown className="w-3.5 h-3.5 text-[#DBC7B5]" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em]">
+              THE NEW STANDARD • {activeLocation.name}
+            </span>
           </div>
 
-          <h1 className="font-serif italic text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-tight">
-            Elevated Living, Fine Dining & Sports
+          <h1 className="font-serif italic text-5xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white leading-none">
+            RESTRO CLUB
           </h1>
 
-          <p className="text-sm sm:text-base text-white/80 max-w-2xl mx-auto font-light leading-relaxed">
-            Welcome to <span className="text-[#EDE6D8] font-semibold">{activeLocation.name}</span>. A multi-acre
-            destination integrating Michelin-grade gastronomy, championship racket arenas, and boutique sanctuary stays.
+          <p className="max-w-2xl mx-auto text-xs sm:text-sm md:text-base text-[#ECF0EA]/80 font-light leading-relaxed tracking-wide uppercase">
+            A premier multi-location destination uniting Michelin dining, sports courts, pool lounges, suites & bespoke social experiences.
           </p>
 
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/restaurant"
-              className="px-7 py-3.5 bg-[#8C5A3C] hover:bg-[#73482E] text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-xl shadow-[#8C5A3C]/30 flex items-center gap-2"
+              className="w-full sm:w-auto px-8 py-4 bg-[#8C5A3C] text-white text-xs font-bold uppercase tracking-widest rounded-full hover:bg-[#73482E] transition-all shadow-xl shadow-[#8C5A3C]/30 flex items-center justify-center gap-2 group cursor-pointer"
             >
-              <span>Explore Dining Menu</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Explore The Club</span>
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
 
-            <button
-              onClick={() => openBookingModal('SPORTS')}
-              className="px-7 py-3.5 bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer"
-            >
-              <Trophy className="w-4 h-4 text-[#EDE6D8]" />
-              <span>Book Sports Court</span>
-            </button>
-          </div>
-
-          <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto border-t border-white/10 text-left">
-            <div>
-              <span className="block text-[10px] uppercase font-bold text-white/50 tracking-widest">Fine Dining</span>
-              <span className="font-serif italic text-lg font-bold text-white">40+ Dishes</span>
-            </div>
-            <div>
-              <span className="block text-[10px] uppercase font-bold text-white/50 tracking-widest">Athletics</span>
-              <span className="font-serif italic text-lg font-bold text-white">4 Court Arenas</span>
-            </div>
-            <div>
-              <span className="block text-[10px] uppercase font-bold text-white/50 tracking-widest">Sanctuary</span>
-              <span className="font-serif italic text-lg font-bold text-white">Luxury Suites</span>
-            </div>
-            <div>
-              <span className="block text-[10px] uppercase font-bold text-white/50 tracking-widest">Location</span>
-              <span className="font-serif italic text-lg font-bold text-[#8C5A3C] truncate block">National Highway</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Luxury Pillars Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8C5A3C]">
-            Integrated Resort Ecosystem
-          </span>
-          <h2 className="font-serif italic text-3xl sm:text-4xl font-bold text-[#1E241D]">
-            Crafted for Unmatched Indulgence
-          </h2>
-          <p className="text-xs text-[#5C554E]">
-            Seamless digital integration connects table orders, sports slots, and luxury suites into one account.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {luxuryPillars.map((pillar, idx) => (
             <Link
-              key={idx}
-              href={pillar.href}
-              className="group bg-white border border-[#E5DEC9] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              href="/sports"
+              className="w-full sm:w-auto px-8 py-4 bg-[#2D3728]/80 border border-[#BAC5B5]/30 hover:bg-white hover:text-[#1E241D] text-white text-xs font-bold uppercase tracking-widest rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <div>
-                <div className="relative h-60 overflow-hidden">
-                  <img
-                    src={pillar.image}
-                    alt={pillar.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider rounded-full">
-                    {pillar.tag}
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-2">
-                  <h3 className="font-serif italic text-2xl font-bold text-[#1E241D] group-hover:text-[#8C5A3C] transition-colors">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-xs text-[#5C554E] leading-relaxed">{pillar.desc}</p>
-                </div>
-              </div>
-
-              <div className="p-6 pt-0 flex items-center justify-between border-t border-[#E5DEC9]/50 mt-4 text-xs font-bold text-[#8C5A3C]">
-                <span>Discover Experience</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
+              <Trophy className="w-4 h-4 text-[#DBC7B5]" />
+              <span>Book Sports Arena</span>
             </Link>
-          ))}
+          </div>
+
+          {/* Quick Location Badge */}
+          <div className="pt-8 flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest text-[#BAC5B5]">
+            <MapPin className="w-3.5 h-3.5 text-[#8C5A3C]" />
+            <span>Highway Hub • {activeLocation.region}</span>
+          </div>
         </div>
       </section>
 
-      {/* Highway Location Anchor Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#EDE6D8] border border-[#E5DEC9] rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
-          <div className="space-y-3 max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#8C5A3C]/15 text-[#8C5A3C] text-[10px] font-bold uppercase tracking-wider rounded-full">
-              <MapPin className="w-3.5 h-3.5" />
-              <span>National Highway Access</span>
+      {/* Curated Experiences Grid */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Bento Card 1: Dining */}
+          <div className="bg-white border border-[#E5DEC9] rounded-3xl p-6 sm:p-8 hover:border-[#8C5A3C]/50 transition-all group flex flex-col justify-between shadow-lg">
+            <div>
+              <div className="w-12 h-12 rounded-2xl border border-[#E5DEC9] bg-[#F7EFE8] text-[#8C5A3C] flex items-center justify-center mb-6 group-hover:bg-[#8C5A3C] group-hover:text-white transition-all shadow-sm">
+                <UtensilsCrossed className="w-6 h-6" />
+              </div>
+              <span className="text-[9px] font-bold text-[#8C5A3C] uppercase tracking-[0.2em] block mb-1">Culinary Artistry</span>
+              <h3 className="font-serif italic text-2xl font-bold text-[#1E241D] mb-3">Reserve Dining</h3>
+              <p className="text-xs text-[#5C554E] leading-relaxed mb-6">
+                Pan-seared Hokkaido scallops, A5 Wagyu reserves, and craft cellar selections.
+              </p>
             </div>
-            <h3 className="font-serif italic text-3xl font-bold text-[#1E241D]">
-              Located Strategically for High Visibility & Leisure
-            </h3>
-            <p className="text-xs text-[#5C554E] leading-relaxed">
-              Situated near the Banur-Mohali highway junction with direct expressway access, valet parking, electric
-              charging stations, and dedicated member concierge lounges.
+            <Link
+              href="/restaurant"
+              className="inline-flex items-center gap-2 text-[10px] font-bold text-[#8C5A3C] uppercase tracking-widest group-hover:translate-x-1 transition-transform"
+            >
+              <span>View Menu & Table Orders</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* Bento Card 2: Sports */}
+          <div className="bg-white border border-[#E5DEC9] rounded-3xl p-6 sm:p-8 hover:border-[#3E4A38]/50 transition-all group flex flex-col justify-between shadow-lg">
+            <div>
+              <div className="w-12 h-12 rounded-2xl border border-[#E5DEC9] bg-[#ECF0EA] text-[#3E4A38] flex items-center justify-center mb-6 group-hover:bg-[#3E4A38] group-hover:text-white transition-all shadow-sm">
+                <Trophy className="w-6 h-6" />
+              </div>
+              <span className="text-[9px] font-bold text-[#3E4A38] uppercase tracking-[0.2em] block mb-1">Active Recreation</span>
+              <h3 className="font-serif italic text-2xl font-bold text-[#1E241D] mb-3">Book Sports</h3>
+              <p className="text-xs text-[#5C554E] leading-relaxed mb-6">
+                Pro Pickleball courts, Box Cricket turf arena, Olympic lap pool, and badminton courts.
+              </p>
+            </div>
+            <Link
+              href="/sports"
+              className="inline-flex items-center gap-2 text-[10px] font-bold text-[#3E4A38] uppercase tracking-widest group-hover:translate-x-1 transition-transform"
+            >
+              <span>Reserve Court Slots</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* Bento Card 3: Stays */}
+          <div className="bg-white border border-[#E5DEC9] rounded-3xl p-6 sm:p-8 hover:border-[#8C5A3C]/50 transition-all group flex flex-col justify-between shadow-lg">
+            <div>
+              <div className="w-12 h-12 rounded-2xl border border-[#E5DEC9] bg-[#F7EFE8] text-[#8C5A3C] flex items-center justify-center mb-6 group-hover:bg-[#8C5A3C] group-hover:text-white transition-all shadow-sm">
+                <BedDouble className="w-6 h-6" />
+              </div>
+              <span className="text-[9px] font-bold text-[#8C5A3C] uppercase tracking-[0.2em] block mb-1">Private Retreat</span>
+              <h3 className="font-serif italic text-2xl font-bold text-[#1E241D] mb-3">Suite Stay</h3>
+              <p className="text-xs text-[#5C554E] leading-relaxed mb-6">
+                Boutique 1BHK/2BHK & Penthouse Suites with 24/7 concierge & private jacuzzi.
+              </p>
+            </div>
+            <Link
+              href="/stays"
+              className="inline-flex items-center gap-2 text-[10px] font-bold text-[#8C5A3C] uppercase tracking-widest group-hover:translate-x-1 transition-transform"
+            >
+              <span>Explore Accommodations</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Royal Dining Showcase Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b border-[#E5DEC9]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#8C5A3C]/10 border border-[#8C5A3C]/30 text-[#8C5A3C] rounded-full text-[10px] font-bold uppercase tracking-[0.2em]">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Michelin-Inspired Gastronomy</span>
+            </div>
+
+            <h2 className="font-serif italic text-4xl sm:text-5xl font-bold text-[#1E241D] leading-tight">
+              Culinary Artistry Meets Unrivaled Atmosphere
+            </h2>
+
+            <p className="text-xs sm:text-sm text-[#5C554E] leading-relaxed">
+              Every dish is an expression of seasonal precision, sourced from local organic estates and imported European artisanal producers. Experience our signature scallops, wagyu steaks, and aged reserve whiskies.
             </p>
+
+            <div className="grid grid-cols-2 gap-4 pt-2">
+              <div className="p-5 bg-white border border-[#E5DEC9] rounded-2xl shadow-sm">
+                <span className="font-serif italic text-3xl font-bold text-[#8C5A3C]">4.9 / 5.0</span>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#857D74] mt-1">Gastronomy Score</p>
+              </div>
+              <div className="p-5 bg-white border border-[#E5DEC9] rounded-2xl shadow-sm">
+                <span className="font-serif italic text-3xl font-bold text-[#3E4A38]">100%</span>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#857D74] mt-1">Organic Certified</p>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/restaurant"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-[#8C5A3C] text-white text-xs font-bold uppercase tracking-widest rounded-full hover:bg-[#73482E] transition-colors shadow-lg shadow-[#8C5A3C]/20"
+              >
+                <span>View Full Menu & Table QR Ordering</span>
+                <ChevronRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <Link
-              href="/membership"
-              className="px-6 py-3.5 bg-[#8C5A3C] hover:bg-[#73482E] text-white text-xs font-bold uppercase tracking-wider rounded-xl text-center transition-all shadow-md"
-            >
-              Join Club Membership
-            </Link>
-            <Link
-              href="/events"
-              className="px-6 py-3.5 bg-white border border-[#E5DEC9] text-[#1E241D] text-xs font-bold uppercase tracking-wider rounded-xl text-center hover:bg-[#FAF8F3] transition-all"
-            >
-              Plan Private Event
-            </Link>
+          <div className="relative">
+            <div className="relative border border-[#E5DEC9] rounded-3xl overflow-hidden bg-white shadow-xl">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ0autCWUNc1m9QoCUB2naO_Ms8PyzFZejWLR3QPrXK8qBEoUCihMeCCMSmW6RTWHvDuxar8KCIySIKZ7vUD-2Vcqu_Mkvm3hiokA3a5qve15LBbWAXm3HpkbDbSbXLZGQc5B1OnVHrrDUnuswJfQe9NyHU_aUKiCFShIsc5e6nhhZWnoJR60Jc5ZU22XgTjP27VtJXuaO6pDLs04FoonrFa3Ga6cQgNTjtdNQsWAf3DjeRaV4WGxeZA"
+                alt="Signature Scallops"
+                className="w-full h-[400px] object-cover"
+              />
+              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#1E241D] via-[#1E241D]/80 to-transparent p-6 text-white">
+                <span className="text-[9px] font-bold text-[#DBC7B5] uppercase tracking-[0.2em] block">Signature Creation</span>
+                <h4 className="font-serif italic text-2xl font-bold mt-0.5 text-white">Pan-Seared Hokkaido Scallops</h4>
+                <p className="text-xs text-[#ECF0EA]/80 mt-1">Oscietra caviar, brown butter emulsion & white truffle oil</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Elite Membership Banner */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="bg-[#3E4A38] border border-[#35402F] p-8 sm:p-12 text-white relative overflow-hidden rounded-3xl shadow-xl">
+          <div className="relative z-10 max-w-2xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#8C5A3C]/30 text-[#DBC7B5] text-[10px] font-bold uppercase tracking-[0.2em] border border-[#8C5A3C]/40 rounded-full">
+              <Crown className="w-3.5 h-3.5 text-[#DBC7B5]" />
+              <span>Privilege Awaits</span>
+            </div>
+            <h2 className="font-serif italic text-3xl sm:text-5xl font-bold text-white">
+              Join the Restro Club Elite Community
+            </h2>
+            <p className="text-xs sm:text-sm text-[#ECF0EA]/80 leading-relaxed uppercase tracking-wider">
+              Unlock priority sports court reservations, complimentary dining discounts, private concierge assistance, and invitations to exclusive tasting events.
+            </p>
+            <div className="pt-4 flex items-center gap-4">
+              <Link
+                href="/membership"
+                className="px-8 py-4 bg-[#8C5A3C] text-white text-xs font-bold uppercase tracking-widest rounded-full hover:bg-[#73482E] transition-all shadow-lg shadow-[#8C5A3C]/30"
+              >
+                Apply for Membership
+              </Link>
+            </div>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

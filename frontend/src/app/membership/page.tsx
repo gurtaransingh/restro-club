@@ -1,102 +1,103 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { useApp } from '../../context/AppContext';
-import { Crown, Check, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Crown, Check, Sparkles, ShieldCheck } from 'lucide-react';
 
 export default function MembershipPage() {
-  const { membershipTiers, currentUser } = useApp();
+  const { membershipTiers, currentUser, updateUser } = useApp();
 
   return (
-    <div className="min-h-screen bg-[#FAF8F3] text-[#1E241D] pb-24 space-y-12">
-      {/* Header */}
-      <section className="bg-[#EDE6D8] py-12 px-4 sm:px-6 lg:px-8 border-b border-[#E5DEC9]">
-        <div className="max-w-7xl mx-auto space-y-2 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#8C5A3C]/15 border border-[#8C5A3C]/30 text-[#8C5A3C] text-[10px] font-bold uppercase tracking-[0.2em] rounded-full">
-            <Crown className="w-3.5 h-3.5" />
-            <span>Exclusive Club Privileges</span>
+    <div className="min-h-screen bg-[#0A0A0A] text-white pb-24">
+      {/* Hero Header */}
+      <section className="bg-[#0A0A0A] py-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-400/10 border border-amber-400/30 text-amber-400 text-[9px] font-bold uppercase tracking-[0.2em] mb-2 rounded-full">
+              <Crown className="w-3.5 h-3.5 text-amber-400" />
+              <span>Privilege & Status</span>
+            </div>
+            <h1 className="font-serif italic text-4xl sm:text-6xl font-bold">Membership Privileges</h1>
+            <p className="text-xs sm:text-sm text-white/60 mt-2 max-w-xl uppercase tracking-wider">
+              Unlock priority court reservations, complimentary dining privileges & private concierge services.
+            </p>
           </div>
-          <h1 className="font-serif italic text-4xl sm:text-5xl font-bold text-[#1E241D]">
-            Membership Tiers & Privileges
-          </h1>
-          <p className="text-xs sm:text-sm text-[#5C554E] max-w-xl mx-auto">
-            Enjoy priority court bookings, complimentary dining discounts, private concierge access, and reciprocal privileges.
-          </p>
+
+          {currentUser && (
+            <div className="bg-[#141414] p-4 border border-white/10 rounded-2xl flex items-center gap-4 shadow-xl">
+              <div className="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-6 h-6 text-amber-400" />
+              </div>
+              <div>
+                <p className="text-[9px] font-bold text-amber-400 uppercase tracking-widest">Your Current Status</p>
+                <p className="text-xs font-bold text-white uppercase tracking-wider mt-0.5">
+                  {currentUser.name} • {currentUser.membershipTierId?.replace('tier-', '').toUpperCase()} TIER
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
       {/* Tiers Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {membershipTiers.map((tier) => {
             const isCurrent = currentUser?.membershipTierId === tier.id;
-            const isElite = tier.id === 'tier-elite';
+
             return (
               <div
                 key={tier.id}
-                className={`border rounded-3xl p-8 flex flex-col justify-between shadow-sm transition-all duration-300 relative ${
-                  isElite
-                    ? 'bg-[#1E241D] text-white border-[#1E241D] shadow-xl'
-                    : 'bg-white border-[#E5DEC9] text-[#1E241D] hover:border-[#8C5A3C]'
+                className={`bg-[#141414] border rounded-3xl p-6 flex flex-col justify-between transition-all relative shadow-xl ${
+                  isCurrent ? 'border-amber-400 bg-[#1a1810]' : 'border-white/10 hover:border-amber-400/40'
                 }`}
               >
-                {isElite && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#8C5A3C] text-white text-[9px] font-bold uppercase tracking-widest rounded-full shadow-md">
-                    Most Prestigious
-                  </div>
+                {isCurrent && (
+                  <span className="absolute -top-3 right-6 bg-amber-400 text-black text-[9px] font-bold px-3 py-0.5 rounded-full uppercase tracking-widest shadow-md">
+                    Your Tier
+                  </span>
                 )}
 
-                <div className="space-y-6">
-                  <div>
-                    <span
-                      className={`text-[10px] font-bold uppercase tracking-widest block ${
-                        isElite ? 'text-[#8C5A3C]' : 'text-[#8C5A3C]'
-                      }`}
-                    >
-                      {tier.name} Tier
+                <div>
+                  <span className="text-[9px] font-bold text-amber-400 uppercase tracking-[0.2em] block">
+                    Tier Privilege
+                  </span>
+                  <h3 className="font-serif italic text-2xl font-bold text-white mt-1">{tier.name}</h3>
+
+                  <div className="my-4 py-3 border-y border-white/10">
+                    <span className="font-serif italic text-3xl font-bold text-amber-400">
+                      ₹{tier.annualFee.toLocaleString()}
                     </span>
-                    <div className="mt-2 flex items-baseline gap-1">
-                      <span className="font-serif italic text-4xl font-bold">₹{tier.annualFee.toLocaleString()}</span>
-                      <span className={`text-xs ${isElite ? 'text-white/60' : 'text-[#5C554E]'}`}>/ year</span>
-                    </div>
-                    <span className="text-xs font-semibold text-emerald-700 block mt-1">
-                      {tier.discountPercentage}% Discount on Dining & Stays
+                    <span className="text-[9px] text-white/50 block uppercase tracking-widest mt-0.5">
+                      Annual Privilege Fee • {tier.discountPercentage}% Savings
                     </span>
                   </div>
 
-                  <div className="space-y-2.5 pt-4 border-t border-current/10">
-                    <span className="text-[10px] font-bold uppercase tracking-wider block opacity-70">
-                      Tier Privileges
-                    </span>
-                    {tier.perks.map((p, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-xs">
-                        <Check className={`w-4 h-4 shrink-0 mt-0.5 ${isElite ? 'text-[#8C5A3C]' : 'text-emerald-700'}`} />
-                        <span>{p}</span>
-                      </div>
+                  <ul className="space-y-2.5 my-6">
+                    {tier.perks.map((perk, i) => (
+                      <li key={i} className="flex items-start gap-2 text-xs text-white/80">
+                        <Check className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                        <span>{perk}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
 
-                <div className="pt-8">
-                  {isCurrent ? (
-                    <div className="w-full py-3 bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider rounded-xl text-center">
-                      Your Current Tier
-                    </div>
-                  ) : (
-                    <Link
-                      href="/register"
-                      className={`w-full py-3.5 text-xs font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 shadow-md ${
-                        isElite
-                          ? 'bg-[#8C5A3C] hover:bg-[#73482E] text-white'
-                          : 'bg-[#1E241D] hover:bg-[#2F392B] text-white'
-                      }`}
-                    >
-                      <span>Join {tier.name} Club</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  )}
-                </div>
+                <button
+                  onClick={() => {
+                    if (currentUser) {
+                      updateUser(currentUser.id, { membershipTierId: tier.id });
+                    }
+                  }}
+                  disabled={isCurrent}
+                  className={`w-full py-3.5 text-xs font-bold uppercase tracking-widest rounded-full transition-all cursor-pointer ${
+                    isCurrent
+                      ? 'bg-amber-400/10 text-amber-400/60 cursor-not-allowed border border-amber-400/20'
+                      : 'bg-amber-400 text-black hover:bg-amber-300 shadow-lg shadow-amber-400/20'
+                  }`}
+                >
+                  {isCurrent ? 'Active Membership' : 'Select Tier'}
+                </button>
               </div>
             );
           })}
